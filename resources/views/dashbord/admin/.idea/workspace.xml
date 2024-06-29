@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="28b1b2a1-417a-470c-a89a-852845099412" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../../../app/Http/Controllers/Admin/LegalServicesController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../app/Models/Admin/LegalServices.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../app/Services/CaseSessionService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../database/migrations/2024_03_26_233305_create_legal_services.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Hr/attandance/attendance_data.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Hr/attandance/attendance_form.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cases/cases_sessions.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cases/sessions_data.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cases/sessions_edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cases/sessions_form.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cases/sessions_results.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clients/client_payments_data.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/legal_services/legal_services_data.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/legal_services/legal_services_edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/legal_services/legal_services_form.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sessions/sessions_data.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sessions/sessions_edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sessions/sessions_form.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sessions/sessions_results.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../app/Helpers/main_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../app/Helpers/main_helper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../app/Http/Controllers/Admin/CasesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../app/Http/Controllers/Admin/CasesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../app/Http/Controllers/Admin/Clients.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../app/Http/Controllers/Admin/Clients.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../app/Http/Controllers/Admin/ContractForms_C.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../app/Http/Controllers/Admin/ContractForms_C.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../app/Http/Controllers/Admin/EmployeesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../app/Http/Controllers/Admin/EmployeesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../app/Http/Controllers/Admin/GeneralSettingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../app/Http/Controllers/Admin/GeneralSettingsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../app/Http/Controllers/Admin/Masrofat_C.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../app/Http/Controllers/Admin/Masrofat_C.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../app/Http/Controllers/Admin/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../app/Http/Controllers/Admin/TaskController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../app/Http/Controllers/Admin/Users/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../app/Http/Controllers/Admin/Users/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../app/Http/Requests/Admin/masrofat/MasrofatSave_R.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../app/Http/Requests/Admin/masrofat/MasrofatSave_R.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../app/Models/Admin/Cases.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../app/Models/Admin/Cases.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../app/Models/Admin/Cleints.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../app/Models/Admin/Cleints.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../app/Models/Admin/Masrofat_M.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../app/Models/Admin/Masrofat_M.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../app/Models/Admin/Tasks.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../app/Models/Admin/Tasks.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../database/migrations/2024_01_22_004418_create_tbl_cases_settings_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../database/migrations/2024_01_22_004418_create_tbl_cases_settings_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../database/migrations/2024_02_12_222639_create_hr_general_settings_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../database/migrations/2024_02_12_222639_create_hr_general_settings_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../database/migrations/2024_03_01_234157_create_tbl_agenda_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../database/migrations/2024_03_01_234157_create_tbl_agenda_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../database/migrations/2024_03_12_212728_create_tbl_masrofat_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../database/migrations/2024_03_12_212728_create_tbl_masrofat_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../public/assets/js/scripts.bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../public/assets/js/scripts.bundle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hr/hr_settings/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Hr/hr_settings/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/archive/archive_settings.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/archive/archive_settings.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/archive/archive_shelf_settings.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/archive/archive_shelf_settings.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cases/cases_data.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/cases/cases_data.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cases/cases_nav.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/cases/cases_nav.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cases/settings/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/cases/settings/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clients/attachment_data.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/clients/attachment_data.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clients/attachment_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/clients/attachment_form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clients/cases_data.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/clients/cases_data.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clients/cases_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/clients/cases_form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clients/clients_attachments.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/clients/clients_attachments.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clients/clients_cases.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/clients/clients_cases.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clients/clients_data.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/clients/clients_data.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clients/clients_nav.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/clients/clients_nav.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contract_forms/all_contract_forms.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/contract_forms/all_contract_forms.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/daily_reports/reports_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/daily_reports/reports_form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dash/main_dash.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/dash/main_dash.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employees/employee_data.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/employees/employee_data.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employees/employee_edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/employees/employee_edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employees/employee_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/employees/employee_form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/masrofat/masrofat_data.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/masrofat/masrofat_data.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/masrofat/masrofat_edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/masrofat/masrofat_edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/masrofat/masrofat_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/masrofat/masrofat_form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pdf/contract.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/pdf/contract.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/settings/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tasks/tasks_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/tasks/tasks_form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tasks/tasks_nav.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/tasks/tasks_nav.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/users_data.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/users/users_data.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../layouts/footer-scripts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/../layouts/footer-scripts.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../layouts/main-sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/../layouts/main-sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../layouts/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/../layouts/master.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../routes/admin.php" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="ProjectId" id="2fTdPKgjr3dUmtGk6k1bbYAX4aH" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="28b1b2a1-417a-470c-a89a-852845099412" name="Default Changelist" comment="" />
+      <created>1713828988234</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1713828988234</updated>
+      <workItem from="1713828990821" duration="30000" />
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
