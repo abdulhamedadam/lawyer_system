@@ -53,18 +53,14 @@ class Achive_m extends Model
     public function get_data_table($id = null)
     {
         $query = DB::table('tbl_archive')
-            ->select('tbl_archive.*', 't1.title as archive_type', 't2.case_name', 't3.employee', 't4.name as client_name', 't5.title as secret_degree_name', 't6.color as secret_color', 't7.title as desk', 't8.title as shelf')
-            ->leftJoin('tbl_archive_settings as t1', 't1.id', '=', 'tbl_archive.type_id')
+            ->select('tbl_archive.*', 't2.case_name', 't4.name as client_name', 't7.title as desk', 't8.title as shelf')
             ->leftJoin('tbl_clients_cases as t2', 't2.id', '=', 'tbl_archive.related_entity_id')
-            ->leftJoin('employees as t3', 't3.id', '=', 'tbl_archive.related_entity_id')
             ->leftJoin('tbl_clients as t4', 't4.id', '=', 'tbl_archive.related_entity_id')
-            ->leftJoin('tbl_archive_settings as t5', 't5.id', '=', 'tbl_archive.secret_degree')
-            ->leftJoin('tbl_archive_settings as t6', 't6.id', '=', 'tbl_archive.secret_degree')
             ->leftJoin('tbl_archive_settings as t7', 't7.id', '=', 'tbl_archive.desk_id')
             ->leftJoin('tbl_archive_settings as t8', 't8.id', '=', 'tbl_archive.shelf_id');
 
         if (!is_null($id)) {
-            $query->where('tbl_archive.id', '=', 1);
+            $query->where('tbl_archive.id', '=', $id);
         }
 
 

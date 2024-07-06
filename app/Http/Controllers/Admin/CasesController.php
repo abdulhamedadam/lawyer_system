@@ -237,14 +237,14 @@ class CasesController extends Controller
     public function morfqat(Request $request, Cases $cases, $id)
     {
         $data['all_data'] = $cases->get_data_table_data($id)[0];
-        $archive = $this->ArchiveRepository->getBywhere(array('related_folder' => 1, 'related_entity_id' => $id));
+        $archive = $this->ArchiveRepository->getBywhere(array('type' => 'cases', 'related_entity_id' => $id));
         //dd($archive);
         $data['archive'] = $archive;
 
         if ($archive->isNotEmpty()) {
             $data['files_data'] = $this->ArchiveFilesRepository->getBywhere(array('archive_id' => $archive[0]->id));
             $archive_model      = new Achive_m();
-            $data['archive_data']    =$archive_model->get_archive_data($id,1)[0];
+            $data['archive_data']    =$archive_model->get_archive_data($id,'cases')[0];
 
         } else {
             $data['files_data'] = [];
@@ -325,32 +325,38 @@ class CasesController extends Controller
     /****************************************************************************/
     public function delete_file(Request $request,$file_id)
     {
+        DB::beginTransaction();
         try {
-            $case=$this->CasesFilesRepository->getById($file_id);
-            $case_id=$case->case_id_fk;
-            $this->CasesFilesRepository->delete($file_id);
+            $archive = $this->ArchiveFilesRepository->getById($file_id);
+            $file = $archive->file;
+            $case_id = $archive->archive->related_entity_id;
 
+            $this->ArchiveFilesRepository->delete($file_id);
+            CaseFiles::where('file', $file)->where('case_id_fk', $case_id)->delete();
 
-            notify()->error(translate('File_deleted_successfully'), '');
-            return redirect()->route('admin.case_morfqat',$case_id);
+            DB::commit();
 
+            $request->session()->flash('toastMessage', translate('File_deleted_successfully'));
+            return redirect()->route('admin.case_morfqat', $case_id);
         } catch (\Exception $e) {
+            DB::rollBack();
             test($e->getMessage());
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
+
 
     }
     /****************************************************************************/
     public function download_file($file_id)
     {
         try {
-            $client_file=$this->CasesFilesRepository->getById($file_id);
+            $client_file=$this->ArchiveFilesRepository->getById($file_id);
             $file_path = Storage::disk('files')->path($client_file->file);
             $headers = [
                 'Content-Type' => 'application/octet-stream',
-                'Content-Disposition' => 'attachment; filename="' . $client_file->file . '"',
+                'Content-Disposition' => 'attachment; filename="' . $client_file->file_name . '"',
             ];
-            return response()->download($file_path);
+            return response()->download($file_path, $client_file->file_name, $headers);
 
 
 

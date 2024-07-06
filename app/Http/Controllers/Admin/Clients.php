@@ -383,7 +383,7 @@ class Clients extends Controller
     public function download_file($file_id)
     {
         try {
-        $client_file=$this->ClientFileRepository->getById($file_id);
+           $client_file=$this->ArchiveFilesRepository->getById($file_id);
             $file_path = Storage::disk('files')->path($client_file->file);
             $headers = [
                 'Content-Type' => 'application/octet-stream',
@@ -473,6 +473,21 @@ class Clients extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
 
+    }
+    /****************************************************************************/
+    public function delete_client_notes(Request $request,$id)
+    {
+        try {
+            $notes=$this->ClientNotesRepository->getById($id);
+            $client_id=$notes->client_id_fk;
+            $this->ClientNotesRepository->delete($id);
+
+            notify()->success(translate('notes_deleted_successfully'), '');
+            return redirect()->route('admin.notes',$client_id);
+        } catch (\Exception $e) {
+            test($e->getMessage());
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
 

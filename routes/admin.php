@@ -96,6 +96,7 @@ Route::group(
       //  Route::get('/download_file/{id}/{file?}', [Clients::class, 'download_file'])->name('download_file');
         Route::get('/Clients/notes/{id}', [Clients::class, 'notes'])->name('notes');
         Route::post('/Clients/add_notes/{id}', [Clients::class, 'add_notes'])->name('add_notes');
+        Route::get('/Clients/delete_client_notes/{id}', [Clients::class, 'delete_client_notes'])->name('delete_client_notes');
 
 
         Route::get('/Cases', [CasesController::class, 'index'])->name('cases_data');

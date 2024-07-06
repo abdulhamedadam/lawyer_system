@@ -26,7 +26,6 @@
                             <tr class="fw-bold fs-6 text-gray-800">
                                 <th style="width: 5%"{{translate('m')}}<</th>
                                 <th style="text-align: center"> {{translate('archive_type')}}</th>
-                                <th style="text-align: center"> {{translate('related_folders')}}</th>
                                 <th style="text-align: center"> {{translate('related_entity')}}</th>
                                 <th style="text-align: center"> {{translate('secret_degree')}}</th>
                                 <th style="width: 20%;text-align: center"> {{translate('place')}}</th>
@@ -79,7 +78,6 @@
                     columns: [
                         { data: 'id', className: 'text-center' },
                         { data: 'archive_type', className: 'text-center' },
-                        { data: 'related_folders', className: 'text-center' },
                         { data: 'related_entity', className: 'text-center' },
                         { data: 'secret_degree', className: 'text-center' },
                         { data: 'place'},
@@ -101,7 +99,7 @@
                             }
                         },
                         {
-                            "targets": [2,3,4,6],
+                            "targets": [2,3,4],
                             "createdCell": function(td, cellData, rowData, row, col) {
                                 $(td).css({
                                     'font-weight': '600',

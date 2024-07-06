@@ -65,6 +65,12 @@
                                         </tr>
                                         </tfoot>
                                     </table>
+                                @else
+                                    <div class="col-md-12">
+                                        <div class="alert alert-danger">
+                                            <strong>{{translate('Warning:')}}</strong> {{ translate('there_is_no_payments') }}
+                                        </div>
+                                    </div>
                                 @endif
                             </div>
                         </div>

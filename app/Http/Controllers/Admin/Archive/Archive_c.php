@@ -63,7 +63,7 @@ class Archive_c extends Controller
             $archive_model = new Achive_m();
             $data          = $archive_model->get_data_table();
 
-
+            // dd($data);
 
             $counter = 0;
             return DataTables::of($data)
@@ -72,20 +72,17 @@ class Archive_c extends Controller
                     return $counter;
                 })
                 ->addColumn('archive_type', function ($row) {
-                    return $row->archive_type;
-                })
-                ->addColumn('related_folders', function ($row) {
-                    $folder =[1 => translate('casses'), 2 => translate('employees'), 3 => translate('clients'),4 => translate('not_related')];
-                    return $folder[$row->related_folder];
+                    $folder =['cases' =>translate('cases') ,'clients' => translate('clients')];
+                    return $folder[$row->type];
                 })
                 ->addColumn('related_entity', function ($row) {
-                    $folder =[1 =>($row->case_name) , 2 => ($row->employee), 3 => ($row->client_name),4 => translate('not_related')];
-                    return $folder[$row->related_entity_id];
+                    $folder =['cases' =>($row->case_name) ,'clients' => ($row->client_name)];
+                    return $folder[$row->type];
                 })
 
                 ->addColumn('secret_degree', function ($row) {
 
-                    return '<span style="color:'.$row->secret_color.'">'.$row->secret_degree_name.' : </span>';
+                    return $row->secret_degree;
                 })
                 ->addColumn('place', function ($row) {
                     return  '<span style="color:green"><i class="bi bi-archive"></i>'.translate('desk').' : </span><span style="color:red">' . $row->desk . '</span>

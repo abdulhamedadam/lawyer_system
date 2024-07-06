@@ -25,10 +25,7 @@
                     <td class="fnt_center_red">{{ \Illuminate\Support\Carbon::parse($note->created_at)->format('H:i:s') }}</td>
                     <td>
                         <div class="btn-group">
-                            <a href="{{ route('admin.download_file', $note->id) }}" class="btn btn-sm btn-primary" title="{{ translate('download') }}">
-                                <i class="bi bi-download"></i>
-                            </a>
-                            <a href="{{ route('admin.delete_file', $note->id) }}" onclick="return confirm('Are You Sure To Delete?')" class="btn btn-sm btn-danger">
+                            <a href="{{ route('admin.delete_client_notes', $note->id) }}" onclick="return confirm('Are You Sure To Delete?')" class="btn btn-sm btn-danger">
                                 <i class="bi bi-trash"></i>
                             </a>
                         </div>

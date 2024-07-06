@@ -123,7 +123,7 @@
 
                     <td>
                         <div class="btn-group">
-                            <a href="{{ route('admin.archive_download_file', $morfaq->id) }}" class="btn btn-sm btn-primary" title="{{ translate('download') }}">
+                            <a href="{{ route('admin.case_download_file', $morfaq->id) }}" class="btn btn-sm btn-primary" title="{{ translate('download') }}">
                                 <i class="bi bi-download"></i>
                             </a>
                             <a href="{{ route('admin.archive_delete_file', $morfaq->id) }}" onclick="return confirm('Are You Sure To Delete?')" class="btn btn-sm btn-danger">

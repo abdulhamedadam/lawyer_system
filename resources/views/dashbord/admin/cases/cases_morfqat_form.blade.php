@@ -75,12 +75,15 @@
                         <div class="row">
                             <div class="col-md-6" style="">
                                 <label for="basic-url" class="form-label">{{ translate('archive_type') }}</label>
-                                    <select class="form-select "  name="type_id" id="type_id" data-control="select2" data-show-subtext="true" data-live-search="true" data-placeholder="{{ translate('select') }}">
-                                        <option value="">{{ translate('select') }}</option>
-                                        @foreach($types as $item)
-                                            <option value="{{ $item->id }}" {{ old('type_id') == $item->id }}>{{ $item->title }}</option>
-                                        @endforeach
-                                    </select>
+
+                                <select class="form-select "  name="type" id="type" data-control="select2" data-show-subtext="true" data-live-search="true" data-placeholder="{{ translate('select') }}">
+                                    <option value="">{{ translate('select') }}</option>
+                                    <?php  $types=archive_type(); ?>
+                                    @foreach($types as $key=>$value)
+                                        <option value="{{ $key }}" @if($key =='cases') selected @endif>{{ $value }}</option>
+                                    @endforeach
+                                </select>
+
 
 
                             </div>
@@ -88,12 +91,13 @@
                             <div class="col-md-6">
                                 <label for="basic-url" class="form-label">{{ translate('secret_degree') }}</label>
 
-                                    <select class="form-select " name="secret_degree" id="secret_degree" data-control="select2" data-show-subtext="true" data-live-search="true" data-placeholder="{{ translate('select') }}">
-                                        <option value="">{{ translate('select') }}</option>
-                                        @foreach($secret_degree as $item)
-                                            <option value="{{ $item->id }}" {{ old('desk_id') == $item->id }}>{{ $item->title }}</option>
-                                        @endforeach
-                                    </select>
+                                <select class="form-select " name="secret_degree" id="secret_degree" data-control="select2" data-show-subtext="true" data-live-search="true" data-placeholder="{{ translate('select') }}">
+                                    <option value="">{{ translate('select') }}</option>
+                                    <?php  $types=secret_degree(); ?>
+                                    @foreach($types as $key=>$value)
+                                        <option value="{{ $key }}" {{ old('secret_degree') == $key }}>{{ $value }}</option>
+                                    @endforeach
+                                </select>
 
 
                             </div>
