@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tbl_archive', function (Blueprint $table) {
             $table->id();
-            $table->integer('type_id')->nullable();
+            $table->enum('type',['clients','cases'])->nullable();
            // $table->string('type_name')->nullable();
             $table->integer('related_folder')->nullable();
             $table->integer('related_entity_id')->nullable();
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('desk_id')->nullable();
             $table->integer('shelf_id')->nullable();
             $table->string('folder_code')->nullable();
-            $table->integer('secret_degree')->nullable();
+            $table->enum('secret_degree',['high','low','medium'])->nullable();
             $table->string('year')->nullable();
             $table->string('month')->nullable();
             $table->integer('publisher_id')->nullable();

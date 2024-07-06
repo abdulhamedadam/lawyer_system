@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('tbl_archive_settings', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->Enum('ttype',['desk','shelf','secret_degree']);
-            $table->integer('from_id');
-            $table->string('color');
+            $table->string('title')->nullable();
+            $table->Enum('ttype',['desk','shelf','secret_degree','archive_type'])->nullable();
+            $table->integer('from_id')->nullable();
+            $table->string('color')->nullable();
             $table->timestamps();
-            $table->index(['from_id', 'title','ttype']);
+
         });
     }
 

@@ -70,16 +70,17 @@
                     </div>
 
                 </div>
-                <form id="form"  method="post" action="{{ route('admin.case_add_archive',$all_data->id) }}" enctype="multipart/form-data">
+                <form id="form"  method="post" action="{{ route('admin.client_add_archive',$all_data->id) }}" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-6" style="">
                                 <label for="basic-url" class="form-label">{{ translate('archive_type') }}</label>
-                                <select class="form-select "  name="type_id" id="type_id" data-control="select2" data-show-subtext="true" data-live-search="true" data-placeholder="{{ translate('select') }}">
+                                <select class="form-select "  name="type" id="type" data-control="select2" data-show-subtext="true" data-live-search="true" data-placeholder="{{ translate('select') }}">
                                     <option value="">{{ translate('select') }}</option>
-                                    @foreach($types as $item)
-                                        <option value="{{ $item->id }}" {{ old('type_id') == $item->id }}>{{ $item->title }}</option>
+                                    <?php  $types=archive_type(); ?>
+                                    @foreach($types as $key=>$value)
+                                        <option value="{{ $key }}" @if($key =='clients') selected @endif>{{ $value }}</option>
                                     @endforeach
                                 </select>
 
@@ -91,8 +92,9 @@
 
                                 <select class="form-select " name="secret_degree" id="secret_degree" data-control="select2" data-show-subtext="true" data-live-search="true" data-placeholder="{{ translate('select') }}">
                                     <option value="">{{ translate('select') }}</option>
-                                    @foreach($secret_degree as $item)
-                                        <option value="{{ $item->id }}" {{ old('desk_id') == $item->id }}>{{ $item->title }}</option>
+                                    <?php  $types=secret_degree(); ?>
+                                    @foreach($types as $key=>$value)
+                                        <option value="{{ $key }}" {{ old('secret_degree') == $key }}>{{ $value }}</option>
                                     @endforeach
                                 </select>
 
@@ -167,5 +169,5 @@
     </script>
 
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\Admin\Cases\ArchiveCase_R', '#form') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\Admin\Cases\ArchiveCase_R', '#') !!}
 @endsection

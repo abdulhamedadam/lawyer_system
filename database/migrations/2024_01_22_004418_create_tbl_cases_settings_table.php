@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('tbl_cases_settings', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->enum('ttype',['case_type','courts','case_status','sarf_band','legal_service'])->nullable();
-            $table->integer('from_id');
-            $table->string('color');
+            $table->integer('from_id')->nullable();
+            $table->string('color')->nullable();
             $table->timestamps();
         });
     }

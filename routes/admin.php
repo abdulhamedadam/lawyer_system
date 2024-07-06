@@ -83,6 +83,7 @@ Route::group(
         Route::get('/Clients/morfqat/{id}', [Clients::class, 'morfqat'])->name('morfqat');
         Route::get('/Clients/relatedCases/{id}', [Clients::class, 'relatedCases'])->name('relatedCases');
         Route::get('/Clients/payments/{id}', [Clients::class, 'payments'])->name('payments');
+        Route::post('/Clients/client_add_archive/{id}', [Clients::class, 'client_add_archive'])->name('client_add_archive');
 
         Route::get('/Clients', [Clients::class, 'index'])->name('clients_data');
         Route::get('/get_ajax_clients', [Clients::class, 'get_ajax_clients'])->name('get_ajax_clients');
@@ -180,6 +181,11 @@ Route::group(
         Route::post('/add_general_settings/{type}', [GeneralSettingsController::class, 'add_general_settings'])->name('add_general_settings');
         Route::get('/delete_general_settings/{id}', [GeneralSettingsController::class, 'delete_general_settings'])->name('delete_general_settings');
         Route::get('/edit_general_settings/{id}', [GeneralSettingsController::class, 'edit_general_settings'])->name('edit_general_settings');
+        Route::get('/show_setting', [GeneralSettingsController::class, 'show_setting'])->name('show_setting');
+        Route::post('/add_popup_setting', [GeneralSettingsController::class, 'add_popup_setting'])->name('add_popup_setting');
+        Route::get('/get_popup_settings', [GeneralSettingsController::class, 'get_popup_settings'])->name('get_popup_settings');
+        Route::post('/update_popup_setting', [GeneralSettingsController::class, 'update_popup_setting'])->name('update_popup_setting');
+        Route::post('/delete_popup_setting', [GeneralSettingsController::class, 'delete_popup_setting'])->name('delete_popup_setting');
 
         Route::get('/Employees', [EmployeesController::class, 'index'])->name('employee_data');
         Route::get('/get_ajax_employee', [EmployeesController::class, 'get_ajax_employee'])->name('get_ajax_employee');

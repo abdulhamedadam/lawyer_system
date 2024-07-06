@@ -122,7 +122,9 @@ class Archive_c extends Controller
     /************************************************************/
     public function get_shelf($id)
     {
-        $data['shelf'] = $this->ArchiveStructureRepository->getBywhere(array('ttype' => 'shelf'));
+
+        $data['shelf'] = $this->ArchiveStructureRepository->getBywhere(array('ttype' => 'shelf','from_id'=>$id));
+        // dd($data['shelf']);
         return view('dashbord.admin.archive.load_shelf_data', $data);
     }
     /************************************************************/

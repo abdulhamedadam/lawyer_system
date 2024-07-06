@@ -21,15 +21,23 @@ class Cleints extends Model
     public function get_client_data($id)
     {
         return DB::table($this->table)
-            ->select($this->table . '.*', 't1.title as job','t2.title as nationality','t3.title as religion','t4.title as governate','t5.title as city')
-            ->join('general_settings as t1', 't1.id', '=', $this->table . '.job_title')
-            ->join('general_settings as t2', 't2.id', '=', $this->table . '.nationality_id')
-            ->join('general_settings as t3', 't3.id', '=', $this->table . '.religion')
-            ->join('tbl_areas_setting as t4', 't4.id', '=', $this->table . '.governate_id')
-            ->join('tbl_areas_setting as t5', 't5.id', '=', $this->table . '.city_id')
+            ->select(
+                $this->table . '.*',
+                't1.title as job',
+                't2.title as nationality',
+                't3.title as religion',
+                't4.title as governate',
+                't5.title as city'
+            )
+            ->leftJoin('general_settings as t1', 't1.id', '=', $this->table . '.job_title')
+            ->leftJoin('general_settings as t2', 't2.id', '=', $this->table . '.nationality_id')
+            ->leftJoin('general_settings as t3', 't3.id', '=', $this->table . '.religion')
+            ->leftJoin('tbl_areas_setting as t4', 't4.id', '=', $this->table . '.governate_id')
+            ->leftJoin('tbl_areas_setting as t5', 't5.id', '=', $this->table . '.city_id')
             ->where($this->table . '.id', '=', $id)
             ->first();
     }
+
     /******************************************************/
     public function get_data_table()
     {

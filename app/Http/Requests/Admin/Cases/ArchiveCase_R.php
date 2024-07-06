@@ -22,7 +22,7 @@ class ArchiveCase_R extends FormRequest
     public function rules(): array
     {
         return [
-            'type_id'=>'required',
+            'type'=>'required',
             'desk_id'=>'required',
             'shelf_id'=>'required',
             'folder_code' => 'required|unique:tbl_archive,folder_code',
@@ -33,7 +33,7 @@ class ArchiveCase_R extends FormRequest
     public function messages()
     {
         return [
-            'type_id.required'=>translate('archive_type').translate('required'),
+            'type.required'=>translate('archive_type').translate('required'),
             'desk_id.required'=>translate('desk').translate('required'),
             'shelf_id.required'=>translate('shelf').translate('required'),
             'folder_code.required'=>translate('folder_code').translate('required'),

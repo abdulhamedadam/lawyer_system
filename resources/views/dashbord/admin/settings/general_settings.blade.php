@@ -32,7 +32,7 @@
                                         <tr class="fw-bold fs-6 text-gray-800">
                                             <th style="width: 5%"{{translate('m')}}<</th>
                                             <th style="text-align: center"> {{translate('name')}}</th>
-                                            <th style="text-align: center"> {{translate('color')}}</th>
+{{--                                            <th style="text-align: center"> {{translate('color')}}</th>--}}
                                             <th style="width: 20%; text-align: center"> {{translate('actions')}}</th>
                                         </tr>
                                         </thead>
@@ -71,10 +71,10 @@
                             <label for="setting_name" class="form-label">{{translate('name')}}</label>
                             <input type="text" class="form-control" name="setting_name" id="setting_name" value="" >
                         </div>
-                        <div class="col-md-3" >
+                       <!-- <div class="col-md-3" >
                             <label for="color" class="form-label">{{translate('color')}}</label>
                             <input type="color" class="form-control" name="color" id="color" value="null" >
-                        </div>
+                        </div>-->
                     </div>
 
                     <div class="modal-footer" style="margin-top: 10px">
@@ -122,7 +122,7 @@
                     columns: [
                         { data: 'id', className: 'text-center' },
                         { data: 'name', className: 'text-center' },
-                        { data: 'color', className: 'text-center' },
+                        // { data: 'color', className: 'text-center' },
                         { data: 'action', className: 'text-center' },
                     ],
 
@@ -140,16 +140,16 @@
                                 });
                             }
                         },
-                        {
-                            "targets": [3,2],
-                            "createdCell": function(td, cellData, rowData, row, col) {
-                                $(td).css({
-                                    'font-weight': '600',
-                                    'text-align': 'center',
-                                    'vertical-align': 'middle',
-                                });
-                            }
-                        },
+                        // {
+                        //     "targets": [3,2],
+                        //     "createdCell": function(td, cellData, rowData, row, col) {
+                        //         $(td).css({
+                        //             'font-weight': '600',
+                        //             'text-align': 'center',
+                        //             'vertical-align': 'middle',
+                        //         });
+                        //     }
+                        // },
 
 
 
@@ -183,7 +183,7 @@
                     console.log(allData);
                     $('#row_id').val(allData.id);
                     $('#setting_name').val(allData.title);
-                    $('#color').val(allData.color);
+                    // $('#color').val(allData.color);
 
                 },
             });
@@ -204,4 +204,5 @@
 
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
     {!! JsValidator::formRequest('App\Http\Requests\Admin\Cases\CaseSettings', '#form') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\Admin\Cases\CaseSettings', '#add_setting_form') !!}
 @endsection

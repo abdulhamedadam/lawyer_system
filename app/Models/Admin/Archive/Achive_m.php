@@ -14,7 +14,11 @@ class Achive_m extends Model
     protected $table = 'tbl_archive';
     protected $guarded = [];
 
-
+    /*************************************************/
+    public function archive_files()
+    {
+        $this->hasMany(AchiveFiles_m::class,'related_entity_id','archive_id');
+    }
     /***********************************************/
     public function save_archive($request)
     {
@@ -75,18 +79,14 @@ class Achive_m extends Model
     public function get_archive_data($id,$type)
     {
         $query = DB::table('tbl_archive')
-            ->select('tbl_archive.*', 't1.title as archive_type', 't2.case_name', 't3.employee', 't4.name as client_name', 't5.title as secret_degree_name', 't6.color as secret_color', 't7.title as desk', 't8.title as shelf')
-            ->leftJoin('tbl_archive_settings as t1', 't1.id', '=', 'tbl_archive.type_id')
+            ->select('tbl_archive.*', 't2.case_name', 't4.name as client_name', 't7.title as desk', 't8.title as shelf')
             ->leftJoin('tbl_clients_cases as t2', 't2.id', '=', 'tbl_archive.related_entity_id')
-            ->leftJoin('employees as t3', 't3.id', '=', 'tbl_archive.related_entity_id')
             ->leftJoin('tbl_clients as t4', 't4.id', '=', 'tbl_archive.related_entity_id')
-            ->leftJoin('tbl_archive_settings as t5', 't5.id', '=', 'tbl_archive.secret_degree')
-            ->leftJoin('tbl_archive_settings as t6', 't6.id', '=', 'tbl_archive.secret_degree')
             ->leftJoin('tbl_archive_settings as t7', 't7.id', '=', 'tbl_archive.desk_id')
             ->leftJoin('tbl_archive_settings as t8', 't8.id', '=', 'tbl_archive.shelf_id');
 
             $query->where('tbl_archive.related_entity_id', '=', $id);
-            $query->where('tbl_archive.related_folder', '=', $type);
+            $query->where('tbl_archive.type', '=', $type);
 
 
 
@@ -99,11 +99,10 @@ class Achive_m extends Model
     }
 
     /***************************************/
-    public function save_case_archive($request,$case_id)
+    public function save_case_archive($request,$related_id)
     {
-        $data['type_id'] = $request->type_id;
-        $data['related_folder'] = 1;
-        $data['related_entity_id'] = $case_id;
+        $data['type'] = $request->type;
+        $data['related_entity_id'] = $related_id;
         $data['secret_degree'] = $request->secret_degree;
         $data['desk_id'] = $request->desk_id;
         $data['shelf_id'] = $request->shelf_id;

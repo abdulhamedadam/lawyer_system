@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Cases\ArchiveCase_R;
 use App\Http\Requests\Admin\Cases\CasesStoreRequest;
 use App\Http\Requests\Admin\Clients\ClientsStoreRequest;
 use App\Http\Requests\Admin\FileRequest;
@@ -180,12 +181,11 @@ class Clients extends Controller
             $insert_data['region_id'] = $request->region;
 
             $client = $this->ClientRepository->create($insert_data);
-            if ($client instanceof Model) {
+
                 // drakify('success');
                 notify()->success(translate('Client_added_successfully'), '');
                 //emotify('success', translate('data_added_successfully'));
                 return redirect()->route('admin.clients_data');
-            }
         } catch (\Exception $e) {
             test($e->getMessage());
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
@@ -228,7 +228,7 @@ class Clients extends Controller
             $insert_data['date_of_birth_ar'] = $request->date_of_barth;
             $insert_data['place_of_birth'] = $request->place_of_barth;
             $insert_data['current_address'] = $request->current_address;
-            $insert_data['religion'] = $request->religion;
+          //  $insert_data['religion'] = $request->religion;
             $insert_data['marital_status'] = $request->marital_status;
             $insert_data['job_title'] = $request->job_title;
             $insert_data['work_place'] = $request->work_place;
@@ -236,17 +236,19 @@ class Clients extends Controller
             $insert_data['whats_number'] = $request->whats_number;
             $insert_data['governate_id'] = $request->governate_id;
             $insert_data['city_id'] = $request->city_id;
-            $insert_data['region'] = $request->region;
+            $insert_data['region_id'] = $request->region;
+
+
+            //dd($insert_data);
             $client = $this->ClientRepository->update($id, $insert_data);
 
-            if ($client) {
-                notify()->success(translate('Client_updated_successfully'), '');
-                return redirect()->route('admin.clients_data');
-            } else {
-                return redirect()->route('admin.clients_data');
-            }
+
+            notify()->success(translate('Client_updated_successfully'), '');
+            return redirect()->route('admin.clients_data');
+
 
         } catch (\Exception $e) {
+            test($e->getMessage());
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
 
@@ -257,7 +259,7 @@ class Clients extends Controller
     public function delete_client(Request $request, $id)
     {
 
-        dd($id);
+      //  dd($id);
 
 
         try {
@@ -276,14 +278,15 @@ class Clients extends Controller
     public function morfqat(Cleints $cleints, $id)
     {
         $data['all_data']     = $cleints->get_client_data($id);
-        $archive = $this->ArchiveRepository->getBywhere(array('related_folder' => 2, 'related_entity_id' => $id));
+      //  dd($data['all_data'] );
+        $archive = $this->ArchiveRepository->getBywhere(array('type' => 'clients', 'related_entity_id' => $id));
         //dd($archive);
         $data['archive'] = $archive;
 
         if ($archive->isNotEmpty()) {
             $data['files_data'] = $this->ArchiveFilesRepository->getBywhere(array('archive_id' => $archive[0]->id));
             $archive_model      = new Achive_m();
-            $data['archive_data']    =$archive_model->get_archive_data($id,2)[0];
+            $data['archive_data']    =$archive_model->get_archive_data($id,'clients')[0];
 
         } else {
             $data['files_data'] = [];
@@ -295,7 +298,6 @@ class Clients extends Controller
         //dd($data);
         return view('dashbord.admin.clients.clients_attachments', $data);
     }
-
     /****************************************************************************/
     public function add_files(FileRequest $request, $id)
     {
@@ -355,34 +357,40 @@ class Clients extends Controller
 
     }
     /****************************************************************************/
-    public function delete_file(Request $request,$file_id)
+    public function delete_file(Request $request, $file_id)
     {
+        DB::beginTransaction();
         try {
-             $client=$this->ClientFileRepository->getById($file_id);
-             $client_id=$client->client_id_fk;
-           //  dd($client_id);
-             $this->ClientFileRepository->delete($file_id);
+            $archive = $this->ArchiveFilesRepository->getById($file_id);
+            $file = $archive->file;
+            $client_id = $archive->archive->related_entity_id;
+
+            $this->ArchiveFilesRepository->delete($file_id);
+            CleintsFile::where('file', $file)->where('client_id_fk', $client_id)->delete();
+
+            DB::commit();
 
             $request->session()->flash('toastMessage', translate('File_deleted_successfully'));
-            return redirect()->route('admin.morfqat',$client_id);
-
+            return redirect()->route('admin.morfqat', $client_id);
         } catch (\Exception $e) {
+            DB::rollBack();
             test($e->getMessage());
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
-
     }
+
     /****************************************************************************/
     public function download_file($file_id)
     {
         try {
         $client_file=$this->ClientFileRepository->getById($file_id);
-        $file_path = Storage::disk('files')->path($client_file->file);
+            $file_path = Storage::disk('files')->path($client_file->file);
             $headers = [
                 'Content-Type' => 'application/octet-stream',
-                'Content-Disposition' => 'attachment; filename="' . $client_file->file . '"',
+                'Content-Disposition' => 'attachment; filename="' . $client_file->file_name . '"',
             ];
-            return response()->download($file_path);
+            return response()->download($file_path, $client_file->file_name, $headers);
+
 
 
 
@@ -407,6 +415,7 @@ class Clients extends Controller
         $data['all_data']            =  $cleints->get_client_data($id);
         $data['files_data']          =  $this->ClientFileRepository->getBywhere(array('client_id_fk'=>$id));
         $data['clients']             =  $this->ClientRepository->getAll();
+        //dd($data['clients'] );
         $data['case_num']            =  $case_model->get_next_case_num();
         $data['case_type']           =  $this->CasesSettingRepository->getBywhere(array('ttype'=>'case_type'));
         $data['courts']              =  $this->CasesSettingRepository->getBywhere(array('ttype'=>'courts'));
@@ -464,6 +473,22 @@ class Clients extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
 
+    }
+
+
+    /***************************************************/
+    public function client_add_archive(ArchiveCase_R $request,$case_id)
+    {
+        try {
+            $archive_model = new Achive_m();
+            $archive_data = $archive_model->save_case_archive($request,$case_id);
+            $archive = $this->ArchiveRepository->create($archive_data);
+            $request->session()->flash('toastMessage', translate('added_successfully'));
+            return redirect()->route('admin.morfqat',$case_id);
+        } catch (\Exception $e) {
+            test($e->getMessage());
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
 

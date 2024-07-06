@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('work_place', 100)->nullable();
             $table->string('personal_image')->nullable();
             $table->unsignedBigInteger('governate_id')->nullable();
+            $table->unsignedBigInteger('religion')->nullable();
             $table->unsignedBigInteger('city_id')->nullable();
             $table->unsignedBigInteger('region_id')->nullable();
             $table->enum('status', ['inactive', 'active'])->default('active');

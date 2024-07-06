@@ -49,8 +49,6 @@ class GeneralSettingsController extends Controller
                 })
                 ->addColumn('name', function ($row) {
                     return $row->title;
-                })->addColumn('color', function ($row) {
-                    return '<div  style="width: 20px; height: 20px; background-color: ' . $row->color . '; text-align: center"></div>';
                 })
                 ->addColumn('action', function ($row) {
                     return '<a data-bs-toggle="modal" data-bs-target="#modalsettings" onclick="edit_setting('.$row->id.')" class="btn btn-sm btn-warning" title="">
@@ -108,6 +106,55 @@ class GeneralSettingsController extends Controller
     {
         $data['all_data']=$this->GeneralSettingsRepository->getById($id);
         return response()->json($data);
+    }
+
+
+    /**************************************************/
+    public function show_setting(Request $request)
+    {
+        $data['type']=$request->type;
+        $data['input_id']=$request->input_id;
+        $data['all_data'] = GeneralSetting::where('ttype', $data['type'])->orderBy('id', 'desc')->get();
+
+        return view('dashbord.admin.settings.show_popup_setting',$data);
+
+    }
+    /*************************************************/
+    public function add_popup_setting(Request $request)
+    {
+        $data['title']=$request->title;
+        $data['ttype']=$request->type;
+        $settings= GeneralSetting::create($data);
+        return response()->json($settings);
+
+    }
+
+    /***************************************************/
+    public function get_popup_settings(Request  $request)
+    {
+        $type = $request->input('type');
+        $settings = GeneralSetting::where('type', $type)->get();
+        return response()->json($settings);
+    }
+
+    /*************************************************/
+    public function update_popup_setting(Request $request)
+    {
+        $data['title']=$request->title;
+        $data['ttype']=$request->type;
+        $data['id']=$request->id;
+        $settings= GeneralSetting::find($data['id']);
+        //dd($data);
+        $settings->update($data);
+        return response()->json($settings);
+    }
+    /************************************************/
+    public function delete_popup_setting(Request $request)
+    {
+        $data['id']=$request->id;
+        $settings= GeneralSetting::where('id',$data['id'])->delete();
+        return response()->json($settings);
+
     }
 
 

@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('general_settings', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->enum('ttype',['main_court','secondary_court','status','priority','governate','city','book_author','book_tasnef','degrees','currency'])->nullable();
-            $table->integer('from_id');
-            $table->string('color');
+            $table->string('title')->nullable();
+            $table->enum('ttype',['main_court','secondary_court','status','priority','governate','city','book_author','book_tasnef','degrees','currency','nationality','religion','qualifications','material_status','gender'])->nullable();
+            $table->integer('from_id')->nullable();
+            $table->string('color')->nullable();
             $table->timestamps();
         });
 

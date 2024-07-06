@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('tbl_archive_files', function (Blueprint $table) {
             $table->id();
             $table->integer('archive_id');
-            $table->integer('folder_code');
+            $table->string('folder_code');
             $table->string('file_name');
             $table->string('file');
+            $table->integer('publisher');
+            $table->string('publisher_n');
            // $table->text('prevent_from');
             $table->timestamps();
         });

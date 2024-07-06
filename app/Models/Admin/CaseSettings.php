@@ -18,7 +18,7 @@ class CaseSettings extends Model
     public function add_setting_data($request,$type)
     {
         $data['title']  =$request->setting_name;
-        $data['color']  =$request->color;
+//        $data['color']  =$request->color;
         $data['ttype']  =$type;
 
         return $data;

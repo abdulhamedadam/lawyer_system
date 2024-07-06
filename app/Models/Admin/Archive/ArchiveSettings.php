@@ -15,7 +15,7 @@ class ArchiveSettings extends Model
     public function add_setting_data($request,$type)
     {
         $data['title']  =$request->setting_name;
-        $data['color']  =$request->color;
+//        $data['color']  =$request->color;
         $data['from_id'] =0;
         $data['ttype']  =$type;
 
@@ -25,7 +25,7 @@ class ArchiveSettings extends Model
     public function add_shelf_setting_data($request)
     {
         $data['title']  =$request->shelf_name;
-        $data['color']  =null;
+//        $data['color']  =null;
         $data['from_id'] =$request->desk_name;
         $data['ttype']  ='shelf';
 

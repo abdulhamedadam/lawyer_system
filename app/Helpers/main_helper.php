@@ -639,6 +639,31 @@ if (!function_exists('getMonthName')) {
     }
 }
 
+/*********************************************/
+
+if (!function_exists('archive_type')) {
+    function archive_type()
+    {
+        return [
+            'clients' => translate('clients'),
+            'cases' => translate('cases')
+        ];
+    }
+}
+
+/*********************************************/
+
+
+if (!function_exists('secret_degree')) {
+    function secret_degree()
+    {
+        return [
+            'high' => translate('high'),
+            'low' => translate('low'),
+            'medium' => translate('medium')
+        ];
+    }
+}
 
 
 

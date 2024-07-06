@@ -50,8 +50,6 @@ class CaseSettingsController extends Controller
                 })
                 ->addColumn('name', function ($row) {
                     return $row->title;
-                })->addColumn('color', function ($row) {
-                    return '<div  style="width: 20px; height: 20px; background-color: ' . $row->color . '; text-align: center"></div>';
                 })
                 ->addColumn('action', function ($row) {
                     return '<a data-bs-toggle="modal" data-bs-target="#modalsettings" onclick="edit_setting('.$row->id.')" class="btn btn-sm btn-warning" title="">
