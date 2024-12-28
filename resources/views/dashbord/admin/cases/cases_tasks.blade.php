@@ -1,37 +1,6 @@
 @extends('dashbord.layouts.master')
 @section('css')
-    <style>
 
-        button, label, select, i {
-            font-family: 'Noto Sans Arabic', 'Helvetica Neue', sans-serif;
-            font-size: 16px;
-            font-weight: bold !important;
-        }
-
-        input, select {
-            border: 2px solid bold !important;
-        }
-
-
-        a, button {
-            padding: 8px !important;
-        }
-
-        .class_label {
-            font-size: 14px;
-            font-weight: bold;
-            color: black;
-            background: #fffbdc;
-            border: 1px solid #ccc;
-        }
-
-        .class_result {
-            color: blue;
-            font-weight: 600;
-            border: 1px solid #ccc;
-        }
-
-    </style>
     @notifyCss
 @endsection
 @section('content')

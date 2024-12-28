@@ -188,6 +188,22 @@ Route::group(
         Route::post('/update_popup_setting', [GeneralSettingsController::class, 'update_popup_setting'])->name('update_popup_setting');
         Route::post('/delete_popup_setting', [GeneralSettingsController::class, 'delete_popup_setting'])->name('delete_popup_setting');
 
+        /*************************************************************************************/
+        Route::get('/Assets/types', [\App\Http\Controllers\Admin\assets\AssetsTypeController::class, 'index'])->name('assets_type');
+        Route::post('/Assets/types', [\App\Http\Controllers\Admin\assets\AssetsTypeController::class, 'add_assets_type'])->name('add_assets_type');
+        Route::get('/Assets/types/edit/{id}', [\App\Http\Controllers\Admin\assets\AssetsTypeController::class, 'edit'])->name('edit_assets_type');
+        Route::post('/Assets/types/delete/{id}', [\App\Http\Controllers\Admin\assets\AssetsTypeController::class, 'delete'])->name('delete_assets_type');
+
+        Route::resource('Assets',\App\Http\Controllers\Admin\assets\AssetsController::class);
+        /*************************************************************************************/
+        Route::resource('Suppliers',\App\Http\Controllers\Admin\SupplierController::class);
+        Route::resource('Tawkelate',\App\Http\Controllers\TawkelateController::class);
+
+
+
+
+
+
         Route::get('/Employees', [EmployeesController::class, 'index'])->name('employee_data');
         Route::get('/get_ajax_employee', [EmployeesController::class, 'get_ajax_employee'])->name('get_ajax_employee');
         Route::get('/add_employee', [EmployeesController::class, 'add_employee'])->name('add_employee');

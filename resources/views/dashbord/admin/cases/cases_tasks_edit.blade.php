@@ -1,6 +1,7 @@
 <form action="{{ route('admin.case_update_tasks',$tasks_data->id) }}" method="post" enctype="multipart/form-data">
     @csrf
 
+    <input type="hidden" name="case_id" id="case_id" value="{{$tasks_data->case_id_fk}}">
     <div class="col-md-12 row">
 
         <div class="col-md-4">
@@ -33,7 +34,7 @@
                     <select class="form-select rounded-start-0" name="esnad_to" id="esnad_to"    data-placeholder="{{translate('select')}}">
                         <option value="">{{translate('select')}}</option>
                         @foreach($emps as $item)
-                            <option value="{{$item->id}}" {{ old('esnad_to',$tasks_data->esnad_to) == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
+                            <option value="{{$item->id}}" {{ old('esnad_to',$tasks_data->esnad_to) == $item->id ? 'selected' : '' }}>{{$item->employee}}</option>
                         @endforeach
                     </select>
                 </div>

@@ -25,13 +25,22 @@
                     <div class="card-body">
 
                         <div class="col-md-12 row">
-
-                            <div class="col-md-4" >
+                            <div class="col-md-3" >
+                                <label for="basic-url"class="form-label">{{translate('case_number')}}</label>
+                                <div class="input-group flex-nowrap ">
+                                    <span class="input-group-text" id="basic-addon3">{!! form_icon('number') !!}</span>
+                                    <input type="text"  class="form-control " name="case_num"  id="case_num" value="{{$case_num}}"  aria-describedby="basic-addon3" readonly>
+                                </div>
+                                @error('case_num')
+                                <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="col-md-3" >
                                 <label for="basic-url"class="form-label">{{translate('Client')}}</label>
                                 <div class="input-group flex-nowrap ">
-                                    <span class="input-group-text" id="basic-addon3"><i class="fa-solid fa-caret-down fs-2"></i></span>
+                                    <span class="input-group-text" id="basic-addon3">{!! form_icon('select') !!}</span>
                                     <div class="overflow-hidden flex-grow-1">
-                                        <select class="form-select rounded-start-0" name="client_id" id="client_id"    data-placeholder="{{translate('select')}}">
+                                        <select class="form-select rounded-start-0" onchange="get_tawkel(this.value)" name="client_id" id="client_id"    data-placeholder="{{translate('select')}}">
                                             <option value="">{{translate('select')}}</option>
                                             @foreach($clients as $item)
                                                 <option value="{{$item->id}}" {{ old('client_id') == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
@@ -43,25 +52,23 @@
                                 <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
                                 @enderror
                             </div>
-
-                            <div class="col-md-4" >
-                                <label for="basic-url"class="form-label">{{translate('case_number')}}</label>
-                                <div class="input-group flex-nowrap ">
-                                    <span class="input-group-text" id="basic-addon3"><i class="fas fa-address-card fs-2"></i></span>
-                                    <input type="text"  class="form-control " name="case_num"  id="case_num" value="{{$case_num}}"  aria-describedby="basic-addon3" readonly>
-                                </div>
-                                @error('case_num')
-                                <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                            <div class="col-md-4" >
+                            <div class="col-md-3" >
                                 <label for="basic-url"class="form-label">{{translate('case_title')}}</label>
                                 <div class="input-group flex-nowrap ">
-                                    <span class="input-group-text" id="basic-addon3"><i class="fas fa-address-card fs-2"></i></span>
+                                    <span class="input-group-text" id="basic-addon3">{!! form_icon('text') !!}</span>
                                     <input type="text"  class="form-control " name="case_title"  id="case_title" value="{{old('case_title')}}"  aria-describedby="basic-addon3" >
                                 </div>
                                 @error('case_title')
+                                <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="col-md-3" >
+                                <label for="basic-url"class="form-label">{{translate('case_receiving_date')}}</label>
+                                <div class="input-group flex-nowrap ">
+                                    <span class="input-group-text" id="basic-addon3">{!! form_icon('date') !!}</span>
+                                    <input type="date"  class="form-control " name="receiving_date"  id="receiving_date" value="{{old('receiving_date')}}"  aria-describedby="basic-addon3" >
+                                </div>
+                                @error('receiving_date')
                                 <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -69,10 +76,10 @@
                         </div>
 
                         <div class=" col-md-12 row" style="margin-top: 10px">
-                            <div class="col-md-4" >
+                            <div class="col-md-3" >
                                 <label for="basic-url"class="form-label">{{translate('case_type')}}</label>
                                 <div class="input-group flex-nowrap ">
-                                    <span class="input-group-text" id="basic-addon3"><i class="fa-solid fa-caret-down fs-2"></i></span>
+                                    <span class="input-group-text" id="basic-addon3">{!! form_icon('select') !!}</span>
                                     <div class="overflow-hidden flex-grow-1">
                                         <select class="form-select rounded-start-0" name="case_type" id="case_type"    data-placeholder="{{translate('select')}}">
                                             <option value="">{{translate('select')}}</option>
@@ -86,11 +93,10 @@
                                 <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
                                 @enderror
                             </div>
-
-                            <div class="col-md-4" >
+                            <div class="col-md-3" >
                                 <label for="basic-url"class="form-label">{{translate('courts')}}</label>
                                 <div class="input-group flex-nowrap ">
-                                    <span class="input-group-text" id="basic-addon3"><i class="fa-solid fa-caret-down fs-2"></i></span>
+                                    <span class="input-group-text" id="basic-addon3">{!! form_icon('select') !!}</span>
                                     <div class="overflow-hidden flex-grow-1">
                                         <select class="form-select rounded-start-0" name="court_id" id="court_id"    data-placeholder="{{translate('select')}}">
                                             <option value="">{{translate('select')}}</option>
@@ -104,21 +110,17 @@
                                 <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
                                 @enderror
                             </div>
-
-                            <div class="col-md-4" >
-                                <label for="basic-url"class="form-label">{{translate('case_status')}}</label>
+                            <div class="col-md-3" >
+                                <label for="basic-url"class="form-label">{{translate('tawkelate')}}</label>
                                 <div class="input-group flex-nowrap ">
-                                    <span class="input-group-text" id="basic-addon3"><i class="fa-solid fa-caret-down fs-2"></i></span>
+                                    <span class="input-group-text" id="basic-addon3">{!! form_icon('select') !!}</span>
                                     <div class="overflow-hidden flex-grow-1">
-                                        <select class="form-select rounded-start-0" name="case_status" id="case_status"    data-placeholder="{{translate('select')}}">
+                                        <select class="form-select rounded-start-0" name="tawkel_id" id="tawkel_id"    data-placeholder="{{translate('select')}}">
                                             <option value="">{{translate('select')}}</option>
-                                            @foreach($case_status as $item)
-                                                <option value="{{$item->id}}" {{ old('case_status') == $item->id ? 'selected' : '' }}>{{$item->title}}</option>
-                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
-                                @error('case_status')
+                                @error('tawkel_id')
                                 <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -189,7 +191,21 @@
 
 
     @notifyJs
+<script>
+    function get_tawkel(id)
+    {
+        $.ajax({
+            url: "{{ route('admin.get_city', ['id' => '__id__']) }}".replace('__id__', id),
+            type: "get",
+            dataType: "html",
+            success: function (html) {
+                $('#city_id').html(html);
 
+
+            },
+        });
+    }
+</script>
 
 
 @endsection

@@ -350,7 +350,6 @@
                 },
             });
         }
-
     </script>
 
 
@@ -398,8 +397,12 @@
                     dataType: "json",
                     success: function (response) {
                         show_settings(type,input_id);
-                        var newOption = new Option(response.title, response.id, true, true);
-                        $('#'+input_id).append(newOption).trigger('change');
+                        $('#' + input_id).empty();
+                        response.settings.forEach(function(setting) {
+                            var newOption = new Option(setting.title, setting.id, false, false);
+                            $('#' + input_id).append(newOption);
+                        });
+                        $('#' + input_id).trigger('change');
                         $('#success_message').text('Setting updated successfully!').removeClass('d-none').delay(3000).fadeOut();
                     },
                 });
@@ -419,8 +422,16 @@
                     success: function (response) {
                         showSuccessMessage('Setting deleted successfully!');
                         show_settings(type,input_id);
-                        var newOption = new Option(response.title, response.id, true, true);
-                        $('#' + input_id).append(newOption).trigger('change');
+                        $('#' + input_id).empty();
+
+                        // Append new options from the response
+                        response.settings.forEach(function(setting) {
+                            var newOption = new Option(setting.title, setting.id, false, false);
+                            $('#' + input_id).append(newOption);
+                        });
+
+                        // Trigger change event
+                        $('#' + input_id).trigger('change');
                     },
                     error: function (xhr, status, error) {
                         // Handle error if needed

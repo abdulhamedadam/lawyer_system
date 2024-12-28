@@ -140,22 +140,28 @@ class GeneralSettingsController extends Controller
     /*************************************************/
     public function update_popup_setting(Request $request)
     {
-        $data['title']=$request->title;
-        $data['ttype']=$request->type;
-        $data['id']=$request->id;
-        $settings= GeneralSetting::find($data['id']);
-        //dd($data);
-        $settings->update($data);
-        return response()->json($settings);
+        $data['title'] = $request->title;
+        $data['type'] = $request->type;
+        $data['id'] = $request->id;
+
+        $setting = GeneralSetting::find($data['id']);
+        $setting->update($data);
+
+        $settings = GeneralSetting::where('ttype',$data['type'])->get();
+
+        return response()->json(['settings' => $settings, 'message' => 'Setting updated successfully!']);
     }
+
     /************************************************/
     public function delete_popup_setting(Request $request)
     {
-        $data['id']=$request->id;
-        $settings= GeneralSetting::where('id',$data['id'])->delete();
-        return response()->json($settings);
-
+        $data['id'] = $request->id;
+        $data['type'] = $request->type;
+        GeneralSetting::where('id', $data['id'])->delete();
+        $settings = GeneralSetting::where('ttype',$data['type'])->get();
+        return response()->json(['settings' => $settings, 'message' => 'Setting deleted successfully!']);
     }
+
 
 
 

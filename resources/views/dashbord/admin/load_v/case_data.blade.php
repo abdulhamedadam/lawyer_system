@@ -35,15 +35,15 @@
             </tr>
             <tr style="background-color: #cd1e59">
                 <td class="class_label"><?= translate('paid') ?></td>
-                <td class="class_result"><?php echo $all_data->total_paid_value; ?></td>
-            </tr>
+                <!--<td class="class_result">1</td>-->
+    
             <tr style="background-color: #cd1e59">
                 <td class="class_label"><?= translate('remain') ?></td>
-                <td class="class_result" style=""><?php echo sprintf("%.2f", ($all_data->fees - $all_data->total_paid_value)); ?></td>
+                <td class="class_result" style=""><?php echo sprintf("%.2f", ($all_data->fees - 1)); ?></td>
 
 
             </tr>
-            </tbody>
+            </tbody
         </table>
     </div>
 </div>

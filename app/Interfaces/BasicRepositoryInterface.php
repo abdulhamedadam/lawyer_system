@@ -26,4 +26,5 @@ interface BasicRepositoryInterface
     public function deleteWhere(array $conditions);
 
 
+
 }

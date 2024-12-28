@@ -507,8 +507,9 @@ class CasesController extends Controller
             $case  = new Tasks();
             $data  = $case->save_task_data($request,'');
             $this->CasesTasksRepository->update($id,$data);
+            $case_id=$request->case_id;
             notify()->success(translate('tasks_added_successfully'), '');
-            return redirect()->route('admin.case_tasks',$id);
+            return redirect()->route('admin.case_tasks',$case_id);
 
         } catch (\Exception $e) {
             test($e->getMessage());

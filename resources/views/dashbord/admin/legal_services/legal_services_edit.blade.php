@@ -13,7 +13,7 @@
                         <h3 class="card-title"></i> {{translate('edit_legal_services')}}</h3>
                         <div class="card-toolbar">
                             <div class="text-center">
-                                <a class="btn btn-primary" href="{{ route('admin.clients_data') }}">
+                                <a class="btn btn-primary" href="{{ route('admin.index_legal_services') }}">
                                     <i class="bi bi-arrow-clockwise fs-3"></i>{{translate('back')}}
                                 </a>
                             </div>

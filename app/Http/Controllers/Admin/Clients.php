@@ -105,7 +105,7 @@ class Clients extends Controller
                 })
                 ->addColumn('related_lawsuits', function ($row) {
 
-                    return '<span style="background-color: lightblue ; " class="span_data_table">'.$row->case_count.'</span>';
+                    return '<span style="background-color: lightblue ; " class="span_data_table">'.client_cases_count($row->id).'</span>';
                 })
                 ->addColumn('total_financial_dues', function ($row) {
 

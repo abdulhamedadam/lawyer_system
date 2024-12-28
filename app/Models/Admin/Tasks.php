@@ -57,15 +57,16 @@ class Tasks extends Model
     public function get_tasks_data($id=null)
     {
         $query = DB::table($this->table)
-            ->select($this->table . '.*','t1.title as priority','t3.color as priority_color','t2.name as to_emp')
+            ->select($this->table . '.*','t1.title as priority','t3.color as priority_color','t2.employee as to_emp')
             ->join('general_settings as t1', 't1.id', '=', $this->table . '.priority_id_fk')
             ->join('general_settings as t3', 't3.id', '=', $this->table . '.priority_id_fk')
-            ->join('admins as t2', 't2.id', '=', $this->table . '.esnad_to');
+            ->join('employees as t2', 't2.id', '=', $this->table . '.esnad_to');
         if (!empty($id)) {
             $query->where($this->table . '.case_id_fk', '=', $id);
         }
 
         $results = $query->get();
+       // dd($results);
 
         return $results->toArray();
     }

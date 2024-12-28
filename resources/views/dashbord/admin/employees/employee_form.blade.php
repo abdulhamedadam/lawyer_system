@@ -1,23 +1,6 @@
 @extends('dashbord.layouts.master')
 @section('css')
-    <style>
 
-        button,label, select,i {
-            font-family:'Helvetica Neue','Arial', sans-serif;
-            font-size: 18px;
-            font-weight: bold !important;
-        }
-
-        input, select {
-            border: 2px solid bold !important;
-        }
-
-
-        a,button{
-            padding: 8px !important;
-        }
-
-    </style>
     @notifyCss
 @endsection
 @section('content')
@@ -41,7 +24,7 @@
                     @csrf
                     <div class="card-body">
                         <div class="col-md-12 row">
-                            <div class="col-md-2" >
+                            <div class="col-md-3" >
                                 <label for="basic-url"class="form-label">{{translate('employee_code')}}</label>
                                 <div class="input-group flex-nowrap ">
                                     <span class="input-group-text" id="basic-addon3"><i class="bi bi-caret-down fs-2"></i></span>
@@ -58,24 +41,8 @@
                                 <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="col-md-2" >
-                                <label for="basic-url"class="form-label">{{translate('Nationality')}}</label>
-                                <div class="input-group flex-nowrap ">
-                                    <span class="input-group-text" id="basic-addon3"><i class="bi bi-caret-down fs-2"></i></span>
-                                    <div class="overflow-hidden flex-grow-1">
-                                        <select class="form-select rounded-start-0" name="nationality_id" id="nationality_id"    data-placeholder="{{translate('select')}}">
-                                            <option value="">{{translate('select')}}</option>
-                                            @foreach($nationalites as $item)
-                                                <option value="{{$item->id}}" {{ old('nationality_id') == $item->id ? 'selected' : '' }}>{{$item->title}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                @error('nationality_id')
-                                <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="col-md-2" >
+
+                            <div class="col-md-3" >
                                 <label for="basic-url"class="form-label">{{translate('gender')}}</label>
                                 <div class="input-group flex-nowrap ">
                                     <span class="input-group-text" id="basic-addon3"><i class="bi bi-caret-down fs-2"></i></span>
@@ -87,6 +54,9 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    <button type="button" class="btn btn-primary" onclick="show_settings('gender','gender')" style="padding: 10px !important;" data-bs-toggle="modal" data-bs-target="#add_setting">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
                                 </div>
 
                                 @error('gender')
@@ -138,6 +108,9 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    <button type="button" class="btn btn-primary" onclick="show_settings('religion','religion')" style="padding: 10px !important;" data-bs-toggle="modal" data-bs-target="#add_setting">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
                                 </div>
                                 @error('religion')
                                 <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
@@ -156,6 +129,9 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    <button type="button" class="btn btn-primary" onclick="show_settings('material_status','marital_status')" style="padding: 10px !important;" data-bs-toggle="modal" data-bs-target="#add_setting">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
                                 </div>
                                 @error('material_status')
                                 <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
@@ -176,6 +152,9 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    <button type="button" class="btn btn-primary" onclick="show_settings('jobs','job_title')" style="padding: 10px !important;" data-bs-toggle="modal" data-bs-target="#add_setting">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
                                 </div>
                                 @error('job_title')
                                 <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
@@ -305,6 +284,9 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    <button type="button" class="btn btn-primary" onclick="show_settings('qualifications','qualifications')" style="padding: 10px !important;" data-bs-toggle="modal" data-bs-target="#add_setting">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
                                 </div>
                                 @error('qualifications')
                                 <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
@@ -322,6 +304,9 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    <button type="button" class="btn btn-primary" onclick="show_settings('degrees','degrees')" style="padding: 10px !important;" data-bs-toggle="modal" data-bs-target="#add_setting">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
                                 </div>
                                 @error('degrees')
                                 <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
@@ -347,6 +332,27 @@
                                 <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
                                 @enderror
                             </div>
+
+                            <div class="col-md-4" >
+                                <label for="basic-url"class="form-label">{{translate('Nationality')}}</label>
+                                <div class="input-group flex-nowrap ">
+                                    <span class="input-group-text" id="basic-addon3"><i class="bi bi-caret-down fs-2"></i></span>
+                                    <div class="overflow-hidden flex-grow-1">
+                                        <select class="form-select rounded-start-0" name="nationality_id" id="nationality_id"    data-placeholder="{{translate('select')}}">
+                                            <option value="">{{translate('select')}}</option>
+                                            @foreach($nationalites as $item)
+                                                <option value="{{$item->id}}" {{ old('nationality_id') == $item->id ? 'selected' : '' }}>{{$item->title}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" onclick="show_settings('nationality','nationality_id')" style="padding: 10px !important;" data-bs-toggle="modal" data-bs-target="#add_setting">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                                @error('nationality_id')
+                                <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
 
 
@@ -366,7 +372,28 @@
         </div>
     </div>
 
+    <div class="modal fade" id="add_setting" tabindex="-1" aria-labelledby="addNationalityModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="title_modal"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <span id="success_message" class="text-success d-none" style="width:100%;background-color: #98d298;text: white;padding: 10px; border-radius: 5px; margin-top: 10px; margin-bottom: 10px;"></span>
 
+                    </div>
+                    <br>
+                    <div id="show_setting">
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -417,6 +444,130 @@
             return jQuery.isNumeric ($(input).val () + String.fromCharCode (event.which));
         }
     </script>
+
+
+
+
+
+
+    <script>
+        function showSuccessMessage(message) {
+            $('#success_message').text(message).removeClass('d-none').show();
+            setTimeout(function() {
+                $('#success_message').fadeOut().addClass('d-none');
+            }, 8000);
+        }
+    </script>
+    <script>
+        function show_settings(type,input_id) {
+            $('#title_modal').text('add '+ type);
+            $.ajax({
+                url: "{{ route('admin.show_setting') }}",
+                type: "get",
+                data: { type: type,input_id:input_id },
+                dataType: "html",
+                success: function (html) {
+                    $('#show_setting').html(html);
+                },
+            });
+        }
+    </script>
+
+
+    <script>
+        function add_setting(type,input_id) {
+            var title = $('#title_setting').val();
+
+            if (title.trim() !== '') {
+                $.ajax({
+                    url: "{{ route('admin.add_popup_setting') }}",
+                    type: "post",
+                    data: { title: title, type: type },
+                    dataType: "json",
+                    success: function (response) {
+                        show_settings(type);
+                        var newOption = new Option(response.title, response.id, true, true);
+                        $('#'+input_id).append(newOption).trigger('change');
+                        showSuccessMessage('Setting added successfully!');
+                    },
+                });
+            } else {
+                $('#error_title').text('هذا الحق ضروري!');
+            }
+        }
+    </script>
+
+    <script>
+        function edit_setting(id, input_id, title) {
+            $('#title_setting').val(title); // Set the title in the input field
+            $('#id').val(id); // Set the title in the input field
+            $('#save-btn').hide(); // Hide the save button
+            $('#update-btn').show(); // Show the update button
+        }
+    </script>
+    <script>
+        function update_setting(type,input_id) {
+            var title = $('#title_setting').val();
+            var id = $('#id').val();
+
+            if (title.trim() !== '') {
+                $.ajax({
+                    url: "{{ route('admin.update_popup_setting') }}",
+                    type: "post",
+                    data: { title: title, type: type,id:id },
+                    dataType: "json",
+                    success: function (response) {
+                        show_settings(type,input_id);
+                        $('#' + input_id).empty();
+
+                        // Append new options from the response
+                        response.settings.forEach(function(setting) {
+                            var newOption = new Option(setting.title, setting.id, false, false);
+                            $('#' + input_id).append(newOption);
+                        });
+
+                        // Trigger change event
+                        $('#' + input_id).trigger('change');
+                        $('#success_message').text('Setting updated successfully!').removeClass('d-none').delay(3000).fadeOut();
+                    },
+                });
+            } else {
+                $('#error_title').text('هذا الحق ضروري!');
+            }
+        }
+    </script>
+    <script>
+        function delete_setting(id,type,input_id) {
+            if (confirm("Are you sure you want to delete this setting?")) {
+                $.ajax({
+                    url: "{{ route('admin.delete_popup_setting') }}",
+                    type: "post",
+                    data: { id: id,type:type },
+                    dataType: "json",
+                    success: function (response) {
+                        showSuccessMessage('Setting deleted successfully!');
+                        show_settings(type,input_id);
+                        $('#' + input_id).empty();
+
+                        // Append new options from the response
+                        response.settings.forEach(function(setting) {
+                            var newOption = new Option(setting.title, setting.id, false, false);
+                            $('#' + input_id).append(newOption);
+                        });
+
+                        // Trigger change event
+                        $('#' + input_id).trigger('change');
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error if needed
+                        console.error(xhr.responseText);
+                    }
+                });
+            }
+        }
+    </script>
+
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 

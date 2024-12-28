@@ -33,7 +33,7 @@
                     <select class="form-select rounded-start-0" name="esnad_to" id="esnad_to"    data-placeholder="{{translate('select')}}">
                         <option value="">{{translate('select')}}</option>
                         @foreach($emps as $item)
-                            <option value="{{$item->id}}" {{ old('esnad_to') == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
+                            <option value="{{$item->id}}" {{ old('esnad_to') == $item->id ? 'selected' : '' }}>{{$item->employee}}</option>
                         @endforeach
                     </select>
                 </div>

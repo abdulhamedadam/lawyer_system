@@ -1,29 +1,6 @@
 @extends('dashbord.layouts.master')
 @section('css')
-<style>
-    .do {
-        background-color: lightgoldenrodyellow !important;
-        color: black !important;
-    }
-    .doing{
-        background-color: lightgreen !important;
-        color: black !important;
-    }
-    .done{
-        background-color: lightcoral !important;
-        text-decoration: line-through !important;
-        text-decoration-color: black !important;
 
-        color: black !important;
-    }
-
-         /* Custom CSS for modal */
-     .modelCalender {
-         max-width: 80% !important;
-         margin: 0 auto !important; /* This centers the modal horizontally */
-     }
-
-</style>
 @notifyCss
 @endsection
 @section('content')

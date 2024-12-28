@@ -39,15 +39,17 @@ class Cleints extends Model
     }
 
     /******************************************************/
-    public function get_data_table()
-    {
-        $query = DB::table('tbl_clients')
-            ->select('tbl_clients.*', 't1.title as job', DB::raw('COUNT(tbl_clients_cases.id) as case_count'))
-            ->join('general_settings as t1', 't1.id', '=', 'tbl_clients.job_title')
-            ->leftJoin('tbl_clients_cases', 'tbl_clients.id', '=', 'tbl_clients_cases.client_id_fk')
-            ->groupBy('tbl_clients.id')
-            ->get();
-        return $query;
-    }
+public function get_data_table()
+{
+    $query = DB::table('tbl_clients')
+        ->select('tbl_clients.*', 't1.title as job')
+        ->join('general_settings as t1', 't1.id', '=', 'tbl_clients.job_title')
+        ->leftJoin('tbl_clients_cases', 'tbl_clients.id', '=', 'tbl_clients_cases.client_id_fk')
+        ->get();
+    return $query;
+}
+
+    
+
 
 }

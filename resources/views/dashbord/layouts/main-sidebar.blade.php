@@ -8,17 +8,15 @@
     <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
 
         <!--begin::Logo image-->
-            <a href="{{ route('admin.main_dash') }}" class="text-white ">
-                <img alt="Logo" src="{{ asset((!empty($mainData->image)) ? $mainData->image : 'assets/media/logos/home-button (1).png') }}" class="h-30px app-sidebar-logo-default"/>
+        <a href="{{ route('admin.main_dash') }}" class="text-white ">
+            <img alt="Logo"
+                 src="{{ asset((!empty($mainData->image)) ? $mainData->image : 'assets/media/logos/home-button (1).png') }}"
+                 class="h-30px app-sidebar-logo-default"/>
 
-            </a>
-     
-
-
-
+        </a>
 
 
-    <!--begin::Sidebar toggle-->
+        <!--begin::Sidebar toggle-->
         <div id="kt_app_sidebar_toggle"
              class="app-sidebar-toggle btn btn-icon btn-sm h-30px w-30px rotate"
              data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body"
@@ -149,6 +147,17 @@
                     <!--end:Menu sub-->
                 </div>
 
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.Tawkelate.index') ? 'active' : '' }}"
+                       href="{{ route('admin.Tawkelate.index') }}">
+          <span class="svg-icon svg-icon-2" style="margin-left: 5px">
+              <!-- New icon for 'Tawkelate' -->
+              <i class="bi bi-award text-info fs-2x"></i>
+          </span>
+                        <span class="menu-title">{{ translate('Tawkelate') }}</span>
+                    </a>
+                </div>
+
 
                 <div class="menu-item">
                     <a class="menu-link {{ request()->routeIs('admin.index_legal_services') ? 'active' : '' }}"
@@ -174,20 +183,19 @@
                 </div>
 
 
-                <div data-kt-menu-trigger="click"
+            <!--  <div data-kt-menu-trigger="click"
                      class="menu-item menu-accordion {{ request()->routeIs(['admin.employee_data','admin.roles_data','admin.hr_settings']) ? 'show' : '' }}">
                     <span class="menu-link">
 											<span class="menu-icon">
 												<span class="svg-icon svg-icon-2">
 													<i class="bi bi-people fs-2x"></i>
 												</span>
-                                                <!--end::Svg Icon-->
+
 											</span>
 											<span class="menu-title">{{translate('human_resource')}}</span>
 											<span class="menu-arrow"></span>
                      </span>
-                    <!--end:Menu link-->
-                    <!--begin:Menu sub-->
+
 
 
                     <div
@@ -221,8 +229,8 @@
                         </div>
 
                     </div>
-                    <!--end:Menu sub-->
-                </div>
+
+                </div>  -->
 
 
                 <div data-kt-menu-trigger="click"
@@ -275,19 +283,30 @@
                     <!--end:Menu sub-->
                 </div>
 
-                @can('قائمة المستخدمين')
-                    <div class="menu-item">
-                        <a class="menu-link {{ request()->routeIs('admin.user_data') ? 'active' : '' }}"
-                           href="{{ route('admin.user_data') }}">
+
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.user_data') ? 'active' : '' }}"
+                       href="{{ route('admin.user_data') }}">
                             <span class="svg-icon svg-icon-2" style="margin-left: 5px">
                                  <i class="bi bi-person-circle text-warning fs-2x"></i>
                             </span>
-                            <span class="menu-title">{{translate('users')}}</span>
-                            <span class="badge badge-danger"
-                                  style="order: 1; margin-left: 5px;">{{data_count('admins')}}</span>
-                        </a>
-                    </div>
-                @endcan
+                        <span class="menu-title">{{translate('users')}}</span>
+                        <span class="badge badge-danger"
+                              style="order: 1; margin-left: 5px;">{{data_count('admins')}}</span>
+                    </a>
+                </div>
+
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.roles_data') ? 'active' : '' }}"
+                       href="{{ route('admin.roles_data') }}">
+                            <span class="svg-icon svg-icon-2" style="margin-left: 5px">
+                                 <i class="bi bi-person-circle text-warning fs-2x"></i>
+                            </span>
+                        <span class="menu-title">{{translate('users_roles')}}</span>
+
+                    </a>
+                </div>
+
 
                 <div class="menu-item">
                     <a class="menu-link {{ request()->routeIs(['admin.masrofat_data','admin.add_masrofat','admin.edit_masrofat']) ? 'active' : '' }}"
@@ -352,6 +371,30 @@
                         <span class="menu-title">{{ translate('contract_forms') }}</span>
                     </a>
                 </div>
+
+
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.Assets.index') ? 'active' : '' }}"
+                       href="{{ route('admin.Assets.index') }}">
+          <span class="svg-icon svg-icon-2" style="margin-left: 5px">
+              <!-- New icon for 'Assets' -->
+              <i class="bi bi-box text-primary fs-2x"></i>
+          </span>
+                        <span class="menu-title">{{ translate('assets') }}</span>
+                    </a>
+                </div>
+
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.Suppliers.index') ? 'active' : '' }}"
+                       href="{{ route('admin.Suppliers.index') }}">
+          <span class="svg-icon svg-icon-2" style="margin-left: 5px">
+              <!-- New icon for 'Suppliers' -->
+              <i class="bi bi-people text-success fs-2x"></i>
+          </span>
+                        <span class="menu-title">{{ translate('Suppliers') }}</span>
+                    </a>
+                </div>
+
 
                 <div class="menu-item">
                     <a class="menu-link {{ request()->routeIs('') ? 'active' : '' }}"

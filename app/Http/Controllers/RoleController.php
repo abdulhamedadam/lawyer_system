@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Admin\Employee\RolesRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
@@ -21,7 +22,8 @@ class RoleController extends Controller
 
     public function roles_data(Role $role)
     {
-        $data['roles'] =$role->get_data();
+        $role          = new User();
+        $data['roles'] = $role->get_roles();
         return view('dashbord.admin.roles.roles_data',$data);
     }
     /**************************************************/

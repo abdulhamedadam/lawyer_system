@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\Users\UpdateUserRequest;
 use App\Interfaces\BasicRepositoryInterface;
 use App\Models\Admin;
 use App\Models\Admin\Employees;
+use App\Models\User;
 use App\Traits\ImageProcessing;
 use App\Traits\ValidationMessage;
 use Illuminate\Http\Request;
@@ -41,7 +42,7 @@ class UserController extends Controller
         if ($request->ajax()) {
             $data = DB::table('admins')
                 ->select('admins.*','t1.mosma_wazefy_n as job_title')
-                ->join('employees as t1','t1.id','=','admins.emp_id','left')
+                ->leftJoin('employees as t1','t1.id','=','admins.emp_id')
                 ->orderBy('admins.id', 'desc')
                 ->get();
 
@@ -134,8 +135,8 @@ class UserController extends Controller
     /*********************************************************/
     public function add_user()
     {
-        $role          = new Role();
-        $data['roles'] = $role->get_data();
+        $role          = new User();
+        $data['roles'] = $role->get_roles();
         $data['employees']=$this->EmployeeRepository->getAll();
         return view('dashbord.admin.users.users_form',$data);
     }

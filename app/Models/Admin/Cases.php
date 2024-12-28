@@ -74,8 +74,7 @@ class Cases extends Model
                 't1.title as case_type',
                 't2.title as court',
                 't3.title as case_status',
-                't4.color as case_status_color',
-                DB::raw('SUM(tbl_case_payments.paid_value) as total_paid_value') // Add this line
+                't4.color as case_status_color' // Add this line
             )
             ->join('tbl_cases_settings as t1', 't1.id', '=', 'tbl_clients_cases.case_type_fk')
             ->join('tbl_cases_settings as t2', 't2.id', '=', 'tbl_clients_cases.court_id_fk')
@@ -89,7 +88,7 @@ class Cases extends Model
             $query->where('tbl_clients_cases.id', '=', $id);
         }
 
-        $query->groupBy('tbl_clients_cases.id'); // Group by case id to get the sum per case
+      
         $query->orderBy('tbl_clients_cases.id', 'desc'); // Sort by case id in descending order
 
         $data = $query->get();

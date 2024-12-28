@@ -11,7 +11,7 @@ use App\Models\Admin\GeneralSetting;
 use App\Traits\ImageProcessing;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
-
+use App\Models\Admin\Cases;
 if (!function_exists('getMainData')) {
 
     function getMainData()
@@ -665,8 +665,50 @@ if (!function_exists('secret_degree')) {
     }
 }
 
+/*********************************************/
+function client_cases_count($client_id)
+{
+    return Cases::where('client_id_fk', $client_id)->count();
+}
+
+/**********************************************/
+function case_payments($case_id_fk)
+{
+    return \App\Models\Admin\CasePayments::where('case_id_fk', $case_id_fk)->sum();
+}
 
 
+/***********************************************/
+if (!function_exists('form_icon')) {
+    function form_icon($type)
+    {
+        $icons = [
+            'text' => '<i class="bi bi-pencil-square fs-4"></i>',
+            'date' => '<i class="bi bi-calendar-event fs-4"></i>',
+            'select' => '<i class="bi bi-list-ul fs-4"></i>',
+            'number' => '<i class="bi bi-hash fs-4"></i>',
+            'email' => '<i class="bi bi-envelope fs-4"></i>',
+            'password' => '<i class="bi bi-key fs-4"></i>',
+            'image' => '<i class="bi bi-image fs-4"></i>',
+        ];
+
+        // Return the icon if it exists, otherwise return a default icon
+        return $icons[$type] ?? '<i class="bi bi-question-circle fs-4"></i>';
+    }
+}
+/************************************************/
+if (!function_exists('create_button')) {
+    function create_button($href, $text = 'Button', $icon = 'bi bi-arrow-clockwise', $class = 'btn btn-primary', $size = 'fs-3',$place='text-center')
+    {
+        return '
+            <div class="'.$place.'">
+                <a class="' . $class . '" href="' . $href . '">
+                    <i class="' . $icon . ' ' . $size . '"></i> ' . $text . '
+                </a>
+            </div>
+        ';
+    }
+}
 
 
 

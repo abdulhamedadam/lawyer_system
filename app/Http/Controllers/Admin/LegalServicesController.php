@@ -63,6 +63,7 @@ class LegalServicesController extends Controller
     }
     /************************************************************************/
     public function index(){
+        //dd('d');
         return view('dashbord.admin.legal_services.legal_services_data');
     }
     /************************************************************************/
@@ -117,8 +118,8 @@ class LegalServicesController extends Controller
                 <button type="submit" onclick="return confirm(\''.__('Are You Sure To Delete?').'\')" class="hover-effect dropdown-item"><i class="bi bi-trash-fill"></i> '.translate('delete').'</button>
             </form>
         </li>
-        <li><a class="hover-effect dropdown-item" target="_blank" href="'.route('admin.legal_service_morfqat', $row->id).'"><i class="bi bi-paperclip"></i> '.translate('files').'</a></li>
-        <li><a class="hover-effect dropdown-item" target="_blank" href="'.route('admin.legal_service_payments', $row->id).'"><i class="bi bi-cash"></i> '.translate('case_payments').'</a></li>
+      <!--  <li><a class="hover-effect dropdown-item" target="_blank" href="'.route('admin.legal_service_morfqat', $row->id).'"><i class="bi bi-paperclip"></i> '.translate('files').'</a></li>
+        <li><a class="hover-effect dropdown-item" target="_blank" href="'.route('admin.legal_service_payments', $row->id).'"><i class="bi bi-cash"></i> '.translate('case_payments').'</a></li>-->
 
     </ul>
 </div>';
