@@ -12,6 +12,7 @@ use App\Traits\ImageProcessing;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use App\Models\Admin\Cases;
+
 if (!function_exists('getMainData')) {
 
     function getMainData()
@@ -170,7 +171,7 @@ if (!function_exists('test')) {
 }
 /*----------------------------------------------*/
 if (!function_exists('createRepository')) {
-     function createRepository(BasicRepositoryInterface $basicRepository, $model)
+    function createRepository(BasicRepositoryInterface $basicRepository, $model)
     {
         $repository = clone $basicRepository;
         $repository->set_model($model);
@@ -190,11 +191,11 @@ if (!function_exists('validate')) {
         foreach ($translations as $fieldName => $conditions) {
 
             // Extract table and field from the unique rule
-            $translateinput=trim(explode('|', $conditions)[0]);
+            $translateinput = trim(explode('|', $conditions)[0]);
             $parts = explode(':', $conditions);
             $uniqueRule = explode(',', $parts[1]);
             $table = trim($uniqueRule[0]);
-            $field = trim( $uniqueRule[1]);
+            $field = trim($uniqueRule[1]);
             //test($translateinput);
 
             if (empty($request[$fieldName])) {
@@ -205,7 +206,7 @@ if (!function_exists('validate')) {
                 // Check uniqueness
                 $value = $request[$fieldName];
                 $exists = DB::table($table)->where($field, $value)->exists();
-                  //test($field);
+                //test($field);
 
                 if ($exists) {
                     $data['inputerror'][] = $fieldName;
@@ -230,9 +231,9 @@ if (!function_exists('translate')) {
     {
         // Get the current language from the session or global setting
         $setLang = app()->getLocale();
-        $lang=[
-            'ar'=>'arabic',
-            'en'=>'english',
+        $lang = [
+            'ar' => 'arabic',
+            'en' => 'english',
         ];
         // Default to 'english' if no language is set
         $setLang = $lang[$setLang] ?: 'english';
@@ -284,7 +285,8 @@ if (!function_exists('translate')) {
     }
 
     /**************************************************/
-    function Diff_Days($start_date, $end_date) {
+    function Diff_Days($start_date, $end_date)
+    {
         $startDate = Carbon::parse($start_date);
         $endDate = Carbon::parse($end_date);
 
@@ -297,6 +299,7 @@ if (!function_exists('translate')) {
             return '--';
         }
     }
+
     /***************************************************/
     if (!function_exists('diffDaysNew')) {
         function diffDaysNew($start_date, $end_date)
@@ -379,7 +382,7 @@ if (!function_exists('translate')) {
 }
 
 /******************************************************/
- function count_case_setting($type=null)
+function count_case_setting($type = null)
 {
     $query = \DB::table('tbl_cases_settings');
     if (!empty($type)) {
@@ -390,8 +393,9 @@ if (!function_exists('translate')) {
     return $count;
 
 }
+
 /*****************************************************/
-function count_general_setting($type=null)
+function count_general_setting($type = null)
 {
     $query = \DB::table('general_settings');
     if (!empty($type)) {
@@ -403,7 +407,7 @@ function count_general_setting($type=null)
 }
 
 /*****************************************************/
-function count_archive_setting($type=null)
+function count_archive_setting($type = null)
 {
     $query = \DB::table('tbl_archive_settings');
     if (!empty($type)) {
@@ -415,7 +419,7 @@ function count_archive_setting($type=null)
 }
 
 /*****************************************************/
-function count_hr_setting($type=null)
+function count_hr_setting($type = null)
 {
     $query = \DB::table('hr_general_settings');
     if (!empty($type)) {
@@ -425,8 +429,9 @@ function count_hr_setting($type=null)
 
     return $count;
 }
+
 /****************************************************/
-function get_emp_name($emp_id=null)
+function get_emp_name($emp_id = null)
 {
     $query = \DB::table('employees');
     if (!empty($emp_id)) {
@@ -435,6 +440,7 @@ function get_emp_name($emp_id=null)
     $data = $query->first();
     return $data ? $data->employee : null;
 }
+
 /*****************************************************/
 function data_count($table)
 {
@@ -443,28 +449,30 @@ function data_count($table)
 
     return $count;
 }
+
 /***************************************************/
-function save_archive_file($file,$request)
+function save_archive_file($file, $request)
 {
-    $data['archive_id']=$request->archive_id;
-    $data['folder_code']=$request->folder_code;
-    $data['file_name']=$request->file_name;
-    $data['file']=$file;
-    $data['publisher']=auth('admin')->user()->id;
-    $data['publisher_n']=auth('admin')->user()->name;
+    $data['archive_id'] = $request->archive_id;
+    $data['folder_code'] = $request->folder_code;
+    $data['file_name'] = $request->file_name;
+    $data['file'] = $file;
+    $data['publisher'] = auth('admin')->user()->id;
+    $data['publisher_n'] = auth('admin')->user()->name;
 
     return $data;
 
 }
 
 /*************************************************/
-function read_file($disk,$file)
+function read_file($disk, $file)
 {
-   // $case_file=$this->CasesFilesRepository->getById($file_id);
+    // $case_file=$this->CasesFilesRepository->getById($file_id);
     $file_path = Storage::disk($disk)->path($file);
     $fileContent = Storage::get($file_path);
     return response()->file($file_path);
 }
+
 /*************************************************/
 function get_currency()
 {
@@ -488,6 +496,7 @@ function get_all_fees($client_id = null)
 
     return $result->total_fees ?? 0;
 }
+
 /*********************************************/
 function get_all_paid($client_id = null)
 {
@@ -517,10 +526,12 @@ function get_all_paid_by_case($case_id = null)
 
     return $result->total_paid ?? 0;
 }
+
 /*******************************************/
 //إجمال الأموال المتحصل عليها هذا اليوم
 if (!function_exists('get_today_payments_sum(')) {
-    function get_today_payments_sum(){
+    function get_today_payments_sum()
+    {
 
         $currentDay = Carbon::now()->format('d');
 
@@ -563,10 +574,6 @@ if (!function_exists('current_month')) {
         return $currentMonthName;
     }
 }
-
-
-
-
 
 
 //إجمال الأموال المتحصل عليها هذا العام
@@ -618,7 +625,8 @@ if (!function_exists('get_oldest_payment_date')) {
 /***********************************************************************/
 if (!function_exists('getMonthName')) {
 
-    function getMonthName($monthNumber) {
+    function getMonthName($monthNumber)
+    {
         $setLang = app()->getLocale();
         // Set default locale to en_US
         $locale = 'en_US.UTF-8';
@@ -698,10 +706,10 @@ if (!function_exists('form_icon')) {
 }
 /************************************************/
 if (!function_exists('create_button')) {
-    function create_button($href, $text = 'Button', $icon = 'bi bi-arrow-clockwise', $class = 'btn btn-primary', $size = 'fs-3',$place='text-center')
+    function create_button($href, $text = 'Button', $icon = 'bi bi-arrow-clockwise', $class = 'btn btn-primary', $size = 'fs-3', $place = 'text-center')
     {
         return '
-            <div class="'.$place.'">
+            <div class="' . $place . '">
                 <a class="' . $class . '" href="' . $href . '">
                     <i class="' . $icon . ' ' . $size . '"></i> ' . $text . '
                 </a>
@@ -709,6 +717,61 @@ if (!function_exists('create_button')) {
         ';
     }
 }
+/************************************************/
+function getYears(int $startYear = 2000, int $endYear = null): array
+{
+    $endYear = $endYear ?? date('Y');
+    return range($startYear, $endYear);
+}
+
+/************************************************/
+if (!function_exists('generateTable')) {
+
+    function generateTable(array $headers)
+    {
+
+        $table = '<div class="card-body">
+                    <div class="">
+                        <table id="table1" class="table table-bordered">
+                            <thead>
+                                <tr class="fw-bold fs-6 text-gray-800">';
+
+        foreach ($headers as $header) {
+            $table .= '<th style="text-align: center;">' . htmlspecialchars(translate($header)) . '</th>';
+        }
+
+        $table .= '</tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>';
+
+        echo $table;
+    }
+}
+/**********************************************/
+if (!function_exists('generateCardHeader')) {
+    function generateCardHeader($card_title,$route,$add_button_title)
+    {
+        $header = '
+         <div class="card-header">
+                    <h3 class="card-title">'. htmlspecialchars(translate($card_title)).'</h3>
+                    <div class="card-toolbar">
+                        <div class="text-center">
+                            <a class="btn btn-primary" href="'. route($route) .'">
+                                <i class="bi bi-plus fs-1"></i>'. htmlspecialchars(translate($add_button_title)).'
+                            </a>
+                        </div>
+                    </div>
+                </div>
+        ';
+
+        echo $header;
+    }
+}
+
 
 
 

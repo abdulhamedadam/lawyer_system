@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Interfaces\BasicRepositoryInterface;
 use App\Models\Admin\CaseSettings;
@@ -13,7 +13,7 @@ use App\Traits\ValidationMessage;
 use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\Storage;
-
+use App\Http\Controllers\Controller;
 
 class TawkelateController extends Controller
 {
@@ -198,4 +198,13 @@ class TawkelateController extends Controller
         return $data;
 
     }
+    /***********************************************/
+    public function get_client_tawkel($id)
+    {
+        $tawkelate = $this->TawkelateRepository->getBywhere(['client_id' => $id])->load('TawkelType');
+
+        return response()->json(['tawkelate' =>$tawkelate]);
+
+    }
+
 }

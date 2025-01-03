@@ -134,6 +134,12 @@ Route::group(
         Route::get('/Cases/session_results/{id}', [CasesController::class, 'session_results'])->name('case_session_results');
         Route::post('/Cases/update_session_results/{id}', [CasesController::class, 'update_session_results'])->name('case_update_session_results');
 
+        Route::get('/Cases/mo7dareen/{id}', [CasesController::class, 'mo7dareen'])->name('case_mo7dareen');
+        Route::post('/Cases/add_mo7dareen/{id}', [CasesController::class, 'add_mo7dareen'])->name('add_mo7dareen');
+        Route::get('/Cases/case_edit_mo7dareen/{id}', [CasesController::class, 'case_edit_mo7dareen'])->name('case_edit_mo7dareen');
+        Route::post('/Cases/update_mo7dareen/{id}', [CasesController::class, 'update_mo7dareen'])->name('case_update_mo7dareen');
+        Route::post('/Cases/delete_mo7dareen/{id}', [CasesController::class, 'delete_mo7dareen'])->name('delete_mo7dareen');
+
 
         Route::get('/Tasks', [TaskController::class, 'index'])->name('tasks');
         Route::post('/Tasks/add_task', [TaskController::class, 'add_task'])->name('add_task');
@@ -197,7 +203,8 @@ Route::group(
         Route::resource('Assets',\App\Http\Controllers\Admin\assets\AssetsController::class);
         /*************************************************************************************/
         Route::resource('Suppliers',\App\Http\Controllers\Admin\SupplierController::class);
-        Route::resource('Tawkelate',\App\Http\Controllers\TawkelateController::class);
+        Route::resource('Tawkelate',\App\Http\Controllers\Admin\TawkelateController::class);
+        Route::get('get_client_tawkel/{id}',[\App\Http\Controllers\Admin\TawkelateController::class,'get_client_tawkel'])->name('get_client_tawkel');
 
 
 

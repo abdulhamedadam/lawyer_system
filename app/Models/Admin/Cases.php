@@ -10,9 +10,7 @@ class Cases extends Model
 {
     use HasFactory;
     protected $table   ='tbl_clients_cases';
-    protected $fillable = [
-        'client_id_fk','case_name','case_num','case_type_fk','court_id_fk','fees','start_date','end_date','case_status','notes'
-    ];
+    protected $guarded = [];
 
 
     public function get_next_case_num()
@@ -88,7 +86,7 @@ class Cases extends Model
             $query->where('tbl_clients_cases.id', '=', $id);
         }
 
-      
+
         $query->orderBy('tbl_clients_cases.id', 'desc'); // Sort by case id in descending order
 
         $data = $query->get();
@@ -101,15 +99,26 @@ class Cases extends Model
     /*******************************************/
     public function insert_data($request)
     {
+        $data['case_num']       = $request->case_num;
+        $data['year']           = $request->year;
         $data['client_id_fk']   = $request->client_id;
         $data['case_name']      = $request->case_title;
-        $data['case_num']       = $request->case_num;
+        $data['receiving_date'] = $request->receiving_date;
         $data['case_type_fk']   = $request->case_type;
-        $data['court_id_fk']    = $request->court_id;
+        $data['litigation_degree']   = $request->litigation_degree;
+        $data['tawkel_id']     = $request->tawkel_id;
+        $data['khesm_name']    = $request->khesm_name;
+        $data['khesm_type']    = $request->khesm_type;
+        $data['khesm_phone']   = $request->khesm_phone;
+        $data['khesm_email']   = $request->khesm_email;
+        $data['court_id_fk']   = $request->court_id;
+        $data['lawyer']        = $request->lawyer;
+
         $data['fees']           = $request->fees;
-        $data['start_date']     = $request->start_date;
-        $data['case_status']    = $request->case_status;
+        $data['circle_name']     = $request->circle_name;
+        //$data['case_status']    = $request->case_status;
         $data['notes']          = $request->notes;
+        $data['case_status']          = 1;
 
         //dd($data);
 

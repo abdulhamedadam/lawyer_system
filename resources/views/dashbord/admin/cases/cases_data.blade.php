@@ -7,42 +7,27 @@
     <div id="kt_app_content" class="app-content flex-column-fluid" >
         <div id="kt_app_content_container" class="t_container"  >
             <div class="card shadow-sm" style="border-top: 3px solid #007bff;">
-                <div class="card-header">
-                    <h3 class="card-title">{{ translate('Cases_list') }}</h3>
-                    <div class="card-toolbar">
-                        <div class="text-center">
-                            <a class="btn btn-primary" href="{{ route('admin.add_case') }}">
-                                <i class="bi bi-plus fs-1"></i> {{ translate('add_case') }}
-                            </a>
-                        </div>
-                    </div>
-                </div>
 
 
-                <div class="card-body">
-                    <div class="">
-                        <table id="table1" class="table table-bordered">
-                            <thead>
-                            <tr class="fw-bold fs-6 text-gray-800">
-                                <th style="width: 5%">{{ translate('hash') }}</th>
-                                <th style="text-align: center"> {{ translate('case_number') }}</th>
-                                <th style="text-align: center"> {{ translate('client_name') }}</th>
-                                <th style="text-align: center">{{ translate('case_title') }}</th>
-                                <th style="text-align: center"> {{ translate('case_type') }}</th>
-                                <th style="text-align: center"> {{ translate('court') }}</th>
-                                <th style="text-align: center"> {{ translate('fees') }}</th>
-                                <th style="text-align: center"> {{ translate('total_paid') }}</th>
-                                <th style="text-align: center"> {{ translate('remain') }}</th>
-                                <th style="text-align: center">{{ translate('status') }}</th>
-                                <th style="width: 20%; text-align: center"> {{ translate('actions') }}</th>
-                            </tr>
-                            </thead>
-                            <tbody> <!-- Adjust the height as per your requirement -->
-                            <!-- Your table rows here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+
+
+               @php
+                   generateCardHeader('Cases_list','admin.add_case','add_case');
+                    $headers = [   'hash',
+                                   'case_num',
+                                   'client_name',
+                                   'case_title',
+                                   'case_type',
+                                   'court',
+                                   'fees',
+                                   'total_paid',
+                                   'remain',
+                                   'status',
+                                   'actions'];
+
+                    generateTable($headers);
+
+               @endphp
 
             </div>
         </div>
@@ -105,7 +90,7 @@
                         }
                     },
                     {
-                        "targets": [2,5,7],
+                        "targets": [2,5,7,8,9,10],
                         "createdCell": function(td, cellData, rowData, row, col) {
                             $(td).css({
                                 'font-weight': '600',
