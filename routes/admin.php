@@ -138,7 +138,13 @@ Route::group(
         Route::post('/Cases/add_mo7dareen/{id}', [CasesController::class, 'add_mo7dareen'])->name('add_mo7dareen');
         Route::get('/Cases/case_edit_mo7dareen/{id}', [CasesController::class, 'case_edit_mo7dareen'])->name('case_edit_mo7dareen');
         Route::post('/Cases/update_mo7dareen/{id}', [CasesController::class, 'update_mo7dareen'])->name('case_update_mo7dareen');
-        Route::post('/Cases/delete_mo7dareen/{id}', [CasesController::class, 'delete_mo7dareen'])->name('delete_mo7dareen');
+        Route::get('/Cases/delete_mo7dareen/{id}', [CasesController::class, 'delete_mo7dareen'])->name('delete_mo7dareen');
+
+        Route::get('/Cases/kafalate/{id}', [CasesController::class, 'kafalate'])->name('case_kafalate');
+        Route::post('/Cases/add_kafalate/{id}', [CasesController::class, 'add_kafalate'])->name('add_kafalate');
+        Route::get('/Cases/edit_kafalate/{id}', [CasesController::class, 'edit_kafalate'])->name('edit_kafalate');
+        Route::post('/Cases/update_kafalate/{id}', [CasesController::class, 'update_kafalate'])->name('update_kafalate');
+        Route::get('/Cases/delete_kafalate/{id}', [CasesController::class, 'delete_kafalate'])->name('delete_kafalate');
 
 
         Route::get('/Tasks', [TaskController::class, 'index'])->name('tasks');

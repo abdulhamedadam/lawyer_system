@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\AddCasesKafalateRequest;
 use App\Http\Requests\Admin\Cases\ArchiveCase_R;
 use App\Http\Requests\Admin\Cases\CaseSessions_R;
 use App\Http\Requests\Admin\Cases\CasesStoreRequest;
@@ -16,6 +17,7 @@ use App\Models\Admin\Archive\AchiveFiles_m;
 use App\Models\Admin\Archive\ArchiveSettings;
 use App\Models\Admin\AreaSetting;
 use App\Models\Admin\CaseFiles;
+use App\Models\admin\CasesKafalate;
 use App\Models\Admin\Employees;
 use App\Models\Admin\CasePayments;
 use App\Models\Admin\Cases;
@@ -58,11 +60,13 @@ class CasesController extends Controller
     protected $AgendaRepository;
     protected $caseSessionService;
     protected $CaseMo7dareen;
+    protected $CaseKafalate;
 
     public function __construct(BasicRepositoryInterface $basicRepository, CaseSessionService $caseSessionService, DuesService $duesService)
     {
 
         $this->ClientRepository = createRepository($basicRepository, new Cleints());
+        $this->CaseKafalate = createRepository($basicRepository, new CasesKafalate());
         $this->ArchiveRepository = createRepository($basicRepository, new Achive_m());
         $this->ArchiveFilesRepository = createRepository($basicRepository, new AchiveFiles_m());
         $this->ArchiveStructureRepository = createRepository($basicRepository, new ArchiveSettings());
@@ -739,7 +743,7 @@ class CasesController extends Controller
             $this->CaseMo7dareen->delete($id);
 
             $request->session()->flash('toastMessage', translate('added_successfully'));
-            return redirect()->route('admin.case_tasks', $case_id);
+            return redirect()->route('admin.case_mo7dareen', $case_id);
 
         } catch (\Exception $e) {
             test($e->getMessage());
@@ -747,5 +751,73 @@ class CasesController extends Controller
         }
     }
 
+    /****************************************************************/
+    public function kafalate(Cases $cases, $case_id)
+    {
+        $data['all_data'] = $cases->get_data_table_data($case_id)[0];
+        $data['kafalate_data'] = $this->CaseKafalate->getAll();
+        return view('dashbord.admin.cases.kafalate.index', $data);
+    }
+    /***************************************************************/
+    public function add_kafalate(AddCasesKafalateRequest $request, $id)
+    {
+        try {
+          //  dd($request);
+            $validatedData = $request->validated();
+            $validatedData['case_id'] = $id;
+            $validatedData['created_by'] = auth()->user()->id;
+            // dd($validatedData);
+            $mo7dareen = $this->CaseKafalate->create($validatedData);
+            $request->session()->flash('toastMessage', translate('added_successfully'));
+            return redirect()->route('admin.case_kafalate', $id);
+
+
+        } catch (\Exception $e) {
+            test($e->getMessage());
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+    /***************************************************************/
+    public function edit_kafalate($id)
+    {
+        $data['kafalate_data'] = $this->CaseKafalate->getById($id);
+        return view('dashbord.admin.cases.kafalate.edit', $data);
+    }
+    /***************************************************************/
+    public function update_kafalate(AddCasesKafalateRequest $request, $id)
+    {
+        try {
+            //dd($request);
+            $validatedData = $request->validated();
+            $validatedData['updated_by'] = auth()->user()->id;
+            // dd($validatedData);
+            $this->CaseKafalate->update($id,$validatedData);
+            $mo7dareen=$this->CaseKafalate->getById($id);
+            $request->session()->flash('toastMessage', translate('added_successfully'));
+            return redirect()->route('admin.case_kafalate', $mo7dareen->case_id);
+
+
+        } catch (\Exception $e) {
+            test($e->getMessage());
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    /***************************************************************/
+    public function delete_kafalate(Request $request,$id)
+    {
+        try {
+            $mo7dareen = $this->CaseKafalate->getById($id);
+            $case_id = $mo7dareen->case_id_fk;
+            $this->CaseKafalate->delete($id);
+
+            $request->session()->flash('toastMessage', translate('added_successfully'));
+            return redirect()->route('admin.case_kafalate', $case_id);
+
+        } catch (\Exception $e) {
+            test($e->getMessage());
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
 
 }
