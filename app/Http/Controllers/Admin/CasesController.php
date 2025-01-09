@@ -7,8 +7,11 @@ use App\Http\Requests\Admin\AddCasesKafalateRequest;
 use App\Http\Requests\Admin\Cases\ArchiveCase_R;
 use App\Http\Requests\Admin\Cases\CaseSessions_R;
 use App\Http\Requests\Admin\Cases\CasesStoreRequest;
+use App\Http\Requests\Admin\caseStatus\AddCaseStatusRequest;
 use App\Http\Requests\Admin\FileRequest;
+use App\Http\Requests\Admin\expert\AddCasesExpertsRequest;
 use App\Http\Requests\Admin\mo7dareen\AddMo7dareenRequest;
+use App\Http\Requests\Admin\tanfizA7kam\AddCasestanfizA7kamRequest;
 use App\Interfaces\BasicRepositoryInterface;
 use App\Models\Admin;
 use App\Models\Admin\Agenda_M;
@@ -28,7 +31,10 @@ use App\Models\Admin\CleintsFile;
 use App\Models\Admin\ClientNotes;
 use App\Models\Admin\GeneralSetting;
 use App\Models\Admin\Tasks;
+use App\Models\CasesExperts;
 use App\Models\CasesMo7dareen;
+use App\Models\CaseStatus;
+use App\Models\CaseTanfizA7kam;
 use App\Services\CaseSessionService;
 use App\Services\DuesService;
 use App\Traits\ImageProcessing;
@@ -61,6 +67,9 @@ class CasesController extends Controller
     protected $caseSessionService;
     protected $CaseMo7dareen;
     protected $CaseKafalate;
+    protected $CaseTanfizA7kam;
+    protected $CaseExpert;
+    protected $CaseStatus;
 
     public function __construct(BasicRepositoryInterface $basicRepository, CaseSessionService $caseSessionService, DuesService $duesService)
     {
@@ -80,6 +89,9 @@ class CasesController extends Controller
         $this->CaseSessionRepository = createRepository($basicRepository, new CaseSessions_M());
         $this->AgendaRepository = createRepository($basicRepository, new Agenda_M());
         $this->CaseMo7dareen = createRepository($basicRepository, new CasesMo7dareen());
+        $this->CaseTanfizA7kam = createRepository($basicRepository, new CaseTanfizA7kam());
+        $this->CaseExpert = createRepository($basicRepository, new CasesExperts());
+        $this->CaseStatus = createRepository($basicRepository, new CaseStatus());
         $this->caseSessionService = $caseSessionService;
         $this->duesService = $duesService;
 
@@ -639,7 +651,7 @@ class CasesController extends Controller
         $success = $this->caseSessionService->updateSession($request, $caseSessions_M, $session_id);
         $case_id = $this->CaseSessionRepository->getById($session_id)->case_id;
         if ($success) {
-            $request->session()->flash('toastMessage', translate('added_successfully'));
+            $request->session()->flash('toastMessage', translate('updated_successfully'));
             return redirect()->route('admin.case_sessions', $case_id);
         } else {
             return redirect()->back()->withErrors(['error' => 'Failed to add session']);
@@ -653,7 +665,7 @@ class CasesController extends Controller
         $case_id = $this->CaseSessionRepository->getById($session_id)->case_id;
         $success = $this->caseSessionService->deletesession($session_id);
         if ($success) {
-            $request->session()->flash('toastMessage', translate('added_successfully'));
+            $request->session()->flash('toastMessage', translate('deleted_successfully'));
             return redirect()->route('admin.case_sessions', $case_id);
         } else {
             return redirect()->back()->withErrors(['error' => 'Failed to add session']);
@@ -673,7 +685,7 @@ class CasesController extends Controller
         $success = $this->caseSessionService->updateSessionResults($request, $caseSessions_M, $session_id);
         $case_id = $this->CaseSessionRepository->getById($session_id)->case_id;
         if ($success) {
-            $request->session()->flash('toastMessage', translate('added_successfully'));
+            $request->session()->flash('toastMessage', translate('updated_successfully'));
             return redirect()->route('admin.case_sessions', $case_id);
         } else {
             return redirect()->back()->withErrors(['error' => 'Failed to add session']);
@@ -725,7 +737,7 @@ class CasesController extends Controller
             // dd($validatedData);
             $this->CaseMo7dareen->update($id,$validatedData);
             $mo7dareen=$this->CaseMo7dareen->getById($id);
-            $request->session()->flash('toastMessage', translate('added_successfully'));
+            $request->session()->flash('toastMessage', translate('updated_successfully'));
             return redirect()->route('admin.case_mo7dareen', $mo7dareen->case_id);
 
 
@@ -742,7 +754,7 @@ class CasesController extends Controller
             $case_id = $mo7dareen->case_id_fk;
             $this->CaseMo7dareen->delete($id);
 
-            $request->session()->flash('toastMessage', translate('added_successfully'));
+            $request->session()->flash('toastMessage', translate('deleted_successfully'));
             return redirect()->route('admin.case_mo7dareen', $case_id);
 
         } catch (\Exception $e) {
@@ -793,7 +805,7 @@ class CasesController extends Controller
             // dd($validatedData);
             $this->CaseKafalate->update($id,$validatedData);
             $mo7dareen=$this->CaseKafalate->getById($id);
-            $request->session()->flash('toastMessage', translate('added_successfully'));
+            $request->session()->flash('toastMessage', translate('updated_successfully'));
             return redirect()->route('admin.case_kafalate', $mo7dareen->case_id);
 
 
@@ -811,7 +823,7 @@ class CasesController extends Controller
             $case_id = $mo7dareen->case_id_fk;
             $this->CaseKafalate->delete($id);
 
-            $request->session()->flash('toastMessage', translate('added_successfully'));
+            $request->session()->flash('toastMessage', translate('deleted_successfully'));
             return redirect()->route('admin.case_kafalate', $case_id);
 
         } catch (\Exception $e) {
@@ -820,4 +832,221 @@ class CasesController extends Controller
         }
     }
 
+    /****************************************************************/
+    public function tanfiz_a7kam(Cases $cases, $case_id)
+    {
+        $data['all_data'] = $cases->get_data_table_data($case_id)[0];
+        $data['courts'] = $this->CasesSettingRepository->getBywhere(array('ttype' => 'courts'));
+        $tanfiz_A7kam_data = $this->CaseTanfizA7kam->getAll();
+
+        foreach ($tanfiz_A7kam_data as $item) {
+            $court = $this->CasesSettingRepository->getBywhere(array('id' => $item->court))->first();
+            $item->court_name = $court->title;
+        }
+
+        $data['tanfiz_A7kam_data'] = $tanfiz_A7kam_data;
+        // dd($data['tanfiz_A7kam_data']);
+        return view('dashbord.admin.cases.tanfiz_a7kam.tanfiz_a7kam', $data);
+    }
+    /***************************************************************/
+    public function add_tanfiz_a7kam(AddCasestanfizA7kamRequest $request, $id)
+    {
+        try {
+            $validatedData = $request->validated();
+            $validatedData['case_id'] = $id;
+            $validatedData['created_by'] = auth()->user()->id;
+            // dd($validatedData);
+            $this->CaseTanfizA7kam->create($validatedData);
+            $request->session()->flash('toastMessage', translate('added_successfully'));
+            return redirect()->route('admin.case_tanfiz_a7kam', $id);
+        } catch (\Exception $e) {
+            test($e->getMessage());
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+    /***************************************************************/
+    public function edit_tanfiz_a7kam($id)
+    {
+        $data['tanfiz_A7kam_data'] = $this->CaseTanfizA7kam->getById($id);
+        $data['courts'] = $this->CasesSettingRepository->getBywhere(array('ttype' => 'courts'));
+        // dd($data);
+        return view('dashbord.admin.cases.tanfiz_a7kam.tanfiz_a7kam_edit', $data);
+    }
+    /***************************************************************/
+    public function update_tanfiz_a7kam(AddCasestanfizA7kamRequest $request, $id)
+    {
+        try {
+            //dd($request);
+            $validatedData = $request->validated();
+            $validatedData['updated_by'] = auth()->user()->id;
+            // dd($validatedData);
+            $this->CaseTanfizA7kam->update($id,$validatedData);
+            $tanfiza7kam=$this->CaseTanfizA7kam->getById($id);
+            $request->session()->flash('toastMessage', translate('updated_successfully'));
+            return redirect()->route('admin.case_tanfiz_a7kam', $tanfiza7kam->case_id);
+
+
+        } catch (\Exception $e) {
+            test($e->getMessage());
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    /***************************************************************/
+    public function delete_tanfiz_a7kam(Request $request,$id)
+    {
+        try {
+            $tanfiza7kam = $this->CaseTanfizA7kam->getById($id);
+            $case_id = $tanfiza7kam->case_id;
+            $this->CaseTanfizA7kam->delete($id);
+
+            $request->session()->flash('toastMessage', translate('deleted_successfully'));
+            return redirect()->route('admin.case_tanfiz_a7kam', $case_id);
+
+        } catch (\Exception $e) {
+            test($e->getMessage());
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+    public function experts(Cases $cases, $case_id)
+    {
+        $data['all_data'] = $cases->get_data_table_data($case_id)[0];
+        $data['experts_data'] = $this->CaseExpert->getAll();
+        $data['emps'] = $this->EmployeeRepository->getAll();
+        // dd($data);
+        return view('dashbord.admin.cases.experts.experts', $data);
+    }
+    /***************************************************************/
+    public function add_expert(AddCasesExpertsRequest $request, $id)
+    {
+        try {
+            $validatedData = $request->validated();
+            $validatedData['case_id'] = $id;
+            $validatedData['created_by'] = auth()->user()->id;
+            // dd($validatedData);
+            $this->CaseExpert->create($validatedData);
+            $request->session()->flash('toastMessage', translate('added_successfully'));
+            return redirect()->route('admin.case_experts', $id);
+        } catch (\Exception $e) {
+            test($e->getMessage());
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+    /***************************************************************/
+    public function edit_expert($id)
+    {
+        $data['experts_data'] = $this->CaseExpert->getById($id);
+        $data['emps'] = $this->EmployeeRepository->getAll();
+        // dd($data);
+        return view('dashbord.admin.cases.experts.experts_edit', $data);
+    }
+    /***************************************************************/
+    public function update_expert(AddCasesExpertsRequest $request, $id)
+    {
+        try {
+            //dd($request);
+            $validatedData = $request->validated();
+            $validatedData['updated_by'] = auth()->user()->id;
+            // dd($validatedData);
+            $this->CaseExpert->update($id,$validatedData);
+            $expert=$this->CaseExpert->getById($id);
+            $request->session()->flash('toastMessage', translate('updated_successfully'));
+            return redirect()->route('admin.case_experts', $expert->case_id);
+
+
+        } catch (\Exception $e) {
+            test($e->getMessage());
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    /***************************************************************/
+    public function delete_expert(Request $request,$id)
+    {
+        try {
+            $case_expert = $this->CaseExpert->getById($id);
+            $case_id = $case_expert->case_id;
+            $this->CaseExpert->delete($id);
+
+            $request->session()->flash('toastMessage', translate('deleted_successfully'));
+            return redirect()->route('admin.case_experts', $case_id);
+
+        } catch (\Exception $e) {
+            test($e->getMessage());
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    /****************************************************************/
+    public function case_status(Cases $cases, $case_id)
+    {
+        $data['all_data'] = $cases->get_data_table_data($case_id)[0];
+        $data['case_status_data'] = $this->CaseStatus->getAll();
+        $data['emps'] = $this->EmployeeRepository->getAll();
+        $data['statuses'] = $this->CasesSettingRepository->getBywhere(array('ttype' => 'case_status'));
+        return view('dashbord.admin.cases.case_status.case_status', $data);
+    }
+    /***************************************************************/
+    public function add_case_status(AddCaseStatusRequest $request, $id)
+    {
+        try {
+          //  dd($request);
+            $validatedData = $request->validated();
+            $validatedData['case_id'] = $id;
+            $validatedData['created_by'] = auth()->user()->id;
+            // dd($validatedData);
+            $case_status = $this->CaseStatus->create($validatedData);
+            $request->session()->flash('toastMessage', translate('added_successfully'));
+            return redirect()->route('admin.case_status', $id);
+
+
+        } catch (\Exception $e) {
+            test($e->getMessage());
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+    /***************************************************************/
+    public function edit_case_status($id)
+    {
+        $data['case_status_data'] = $this->CaseStatus->getById($id);
+        $data['emps'] = $this->EmployeeRepository->getAll();
+        $data['statuses'] = $this->CasesSettingRepository->getBywhere(array('ttype' => 'case_status'));
+        return view('dashbord.admin.cases.case_status.case_status_edit', $data);
+    }
+    /***************************************************************/
+    public function update_case_status(AddCaseStatusRequest $request, $id)
+    {
+        try {
+            //dd($request);
+            $validatedData = $request->validated();
+            $validatedData['updated_by'] = auth()->user()->id;
+            // dd($validatedData);
+            $this->CaseStatus->update($id,$validatedData);
+            $case_status=$this->CaseStatus->getById($id);
+            $request->session()->flash('toastMessage', translate('updated_successfully'));
+            return redirect()->route('admin.case_status', $case_status->case_id);
+
+
+        } catch (\Exception $e) {
+            test($e->getMessage());
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    /***************************************************************/
+    public function delete_case_status(Request $request,$id)
+    {
+        try {
+            $case_status = $this->CaseStatus->getById($id);
+            $case_id = $case_status->case_id;
+            $this->CaseStatus->delete($id);
+
+            $request->session()->flash('toastMessage', translate('deleted_successfully'));
+            return redirect()->route('admin.case_status', $case_id);
+
+        } catch (\Exception $e) {
+            test($e->getMessage());
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
 }

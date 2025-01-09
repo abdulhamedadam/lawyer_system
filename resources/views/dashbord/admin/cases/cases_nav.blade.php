@@ -59,8 +59,8 @@
 
             <div class="row">
                 <div class="col-md-11">
-                    <a href="{{ route('admin.case_morfqat', $all_data->id) }}"
-                       class="btn btn-primary p-2 {{ request()->routeIs('admin.case_morfqat') ? 'active' : '' }}">
+                    <a href="{{ route('admin.case_status', $all_data->id) }}"
+                       class="btn btn-primary p-2 {{ request()->routeIs('admin.case_status') ? 'active' : '' }}">
                         <i class="bi bi-check-circle-fill"></i> <?= translate('case_status') ?>
                     </a>
 
@@ -76,7 +76,19 @@
 
                     <a href="{{ route('admin.case_kafalate', $all_data->id) }}"
                        class="btn btn-warning p-2 {{ request()->routeIs('admin.case_kafalate') ? 'active' : '' }}">
-                        <i class="bi bi-file"></i> <?= translate('case_kafalate') ?>
+                        <i class="bi-person-badge"></i> <?= translate('case_kafalate') ?>
+                    </a>
+
+                    <a href="{{ route('admin.case_tanfiz_a7kam', $all_data->id) }}"
+                        class="btn p-2 {{ request()->routeIs('admin.case_tanfiz_a7kam') ? 'active' : '' }}"
+                        style="background-color: #ca5555; color: white;">
+                        <i class="bi bi-clipboard-check"></i> <?= translate('tanfiz_a7kam') ?>
+                    </a>
+
+                    <a href="{{ route('admin.case_experts', $all_data->id) }}"
+                       class="btn p-2 {{ request()->routeIs('admin.case_experts') ? 'active' : '' }}"
+                       style="background-color: #33C1FF; color: white;">
+                        <i class="bi bi-person-workspace"></i> <?= translate('experts') ?>
                     </a>
 
                     <a href="{{ route('admin.case_payments', $all_data->id) }}"
