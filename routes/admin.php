@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Users\UsersController;
 use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\Admin\CasesController;
 use App\Http\Controllers\Admin\TaskController;
+use App\Http\Controllers\ChatGPTController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\Admin\GeneralSettingsController;
 use Illuminate\Support\Facades\Route;
@@ -382,7 +383,10 @@ Route::group(
 
 
 
-        Route::get('/ask_ai', [OpenAIController::class, 'ask_ai'])->name('ask_ai');
+        Route::post('/ask_ai', [ChatGPTController::class, 'ask'])->name('ask_ai');
+        Route::get('/chat', function () {
+            return view('dashbord.admin.openAi.chat');
+        });
         Route::post('/openai/generate-text', [OpenAIController::class, 'generateText'])->name('generateText');
 
         /************************** MAINDATA *****************************/

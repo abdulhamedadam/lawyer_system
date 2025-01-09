@@ -1,30 +1,30 @@
 <?php
 
-
 namespace App\Services;
+
 use GuzzleHttp\Client;
 
 class OpenAIService
 {
-    protected $client;
-    protected $apiKey;
+    private $client;
 
     public function __construct()
     {
-        $this->client = new Client();
-        $this->apiKey = config('services.openai.api_key');
+        $this->client = new Client([
+            'base_uri' => 'https://api.openai.com/v1/',
+            'headers' => [
+                'Authorization' => 'Bearer ' . config('services.openai.key'),
+                'Content-Type'  => 'application/json',
+            ],
+        ]);
     }
 
-    public function generateText($prompt)
+    public function chat($messages)
     {
-        $response = $this->client->post('https://api.openai.com/v1/completions', [
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer ' . $this->apiKey,
-            ],
+        $response = $this->client->post('chat/completions', [
             'json' => [
-                'prompt' => $prompt,
-                'max_tokens' => 100, // Adjust according to your needs
+                'model' => 'gpt-3.5-turbo',
+                'messages' => $messages,
             ],
         ]);
 
