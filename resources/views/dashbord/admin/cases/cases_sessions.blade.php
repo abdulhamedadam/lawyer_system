@@ -25,6 +25,7 @@
                         <div class="col-md-8">
 
                             @include('dashbord.admin.cases.sessions_form')
+                            @include('dashbord.admin.cases.sessions_data')
 
                         </div>
                         <div class="col-md-4">
@@ -35,7 +36,6 @@
                     </div>
 
                 </div>
-                @include('dashbord.admin.cases.sessions_data')
             </div>
         </div>
 

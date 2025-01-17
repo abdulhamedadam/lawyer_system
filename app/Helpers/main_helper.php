@@ -654,7 +654,8 @@ if (!function_exists('archive_type')) {
     {
         return [
             'clients' => translate('clients'),
-            'cases' => translate('cases')
+            'cases' => translate('cases'),
+            'edary' => translate('edary_work'),
         ];
     }
 }
@@ -667,8 +668,8 @@ if (!function_exists('secret_degree')) {
     {
         return [
             'high' => translate('high'),
+            'medium' => translate('medium'),
             'low' => translate('low'),
-            'medium' => translate('medium')
         ];
     }
 }

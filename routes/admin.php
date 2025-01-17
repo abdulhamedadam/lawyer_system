@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\ContactController;
 
 use App\Http\Controllers\Admin\Clients;
 use App\Http\Controllers\Admin\CaseSettingsController;
+use App\Http\Controllers\Admin\EdaryWorkController;
+use App\Http\Controllers\Admin\Mraf3atController;
 use App\Http\Controllers\Admin\Setting\MaindataController;
 use App\Http\Controllers\Admin\Users\ProfileController;
 use App\Http\Controllers\Admin\Users\UsersController;
@@ -166,6 +168,11 @@ Route::group(
             Route::post('/Cases/update_experts/{id}', [CasesController::class, 'update_expert'])->name('update_expert');
             Route::get('/Cases/delete_experts/{id}', [CasesController::class, 'delete_expert'])->name('delete_expert');
 
+            Route::get('/Cases/mraf3at/{id}', [CasesController::class, 'mraf3at'])->name('case_mraf3at');
+            Route::post('/Cases/add_mraf3a/{id}', [CasesController::class, 'add_mraf3a'])->name('case_add_mraf3a');
+            Route::get('/Cases/edit_mraf3a/{id}', [CasesController::class, 'edit_mraf3a'])->name('case_edit_mraf3a');
+            Route::post('/Cases/update_mraf3a/{id}', [CasesController::class, 'update_mraf3a'])->name('case_update_mraf3a');
+            Route::get('/Cases/delete_mraf3a/{id}', [CasesController::class, 'delete_mraf3a'])->name('case_delete_mraf3a');
 
             Route::get('/Tasks', [TaskController::class, 'index'])->name('tasks');
             Route::post('/Tasks/add_task', [TaskController::class, 'add_task'])->name('add_task');
@@ -221,6 +228,28 @@ Route::group(
             Route::post('/delete_popup_setting', [GeneralSettingsController::class, 'delete_popup_setting'])->name('delete_popup_setting');
 
             /*************************************************************************************/
+            Route::get('/edary_work/payments/{id}', [EdaryWorkController::class, 'payments'])->name('edary_work_payments');
+            Route::post('/edary_work/add_payments/{id}', [EdaryWorkController::class, 'add_payments'])->name('edary_work_add_payments');
+            Route::get('/edary_work/edit_payments/{id}', [EdaryWorkController::class, 'edit_payments'])->name('edary_work_edit_payments');
+            Route::post('/edary_work/update_payments/{id}', [EdaryWorkController::class, 'update_payments'])->name('edary_work_update_payments');
+            Route::delete('/edary_work/delete_payments/{id}', [EdaryWorkController::class, 'delete_payments'])->name('edary_work_delete_payments');
+
+            /*************************************************************************************/
+            Route::get('/edary_work/agra2at/{id}', [EdaryWorkController::class, 'agra2at'])->name('edary_work_agra2at');
+            Route::post('/edary_work/add_agra2/{id}', [EdaryWorkController::class, 'add_agra2'])->name('edary_work_add_agra2');
+            Route::get('/edary_work/edit_agra2/{id}', [EdaryWorkController::class, 'edit_agra2'])->name('edary_work_edit_agra2');
+            Route::post('/edary_work/update_agra2/{id}', [EdaryWorkController::class, 'update_agra2'])->name('edary_work_update_agra2');
+            Route::delete('/edary_work/delete_agra2/{id}', [EdaryWorkController::class, 'delete_agra2'])->name('edary_work_delete_agra2');
+
+            /*************************************************************************************/
+            Route::get('/edary_work/morfqat/{id}', [EdaryWorkController::class, 'morfqat'])->name('edary_work_morfqat');
+            Route::post('/edary_work/add_archive/{id}', [EdaryWorkController::class, 'edary_work_add_archive'])->name('edary_work_add_archive');
+            Route::post('/edary_work/add_files/{id}', [EdaryWorkController::class, 'edary_work_add_files'])->name('edary_work_add_files');
+            Route::get('/edary_work/delete_file/{id}', [EdaryWorkController::class, 'delete_file'])->name('edary_work_delete_file');
+            Route::get('/edary_work/read_file/{id}', [EdaryWorkController::class, 'read_file'])->name('edary_work_read_file');
+            Route::get('/edary_work/download_file/{id}/{file?}', [EdaryWorkController::class, 'download_file'])->name('edary_work_download_file');
+
+            /*************************************************************************************/
             Route::get('/Assets/types', [\App\Http\Controllers\Admin\assets\AssetsTypeController::class, 'index'])->name('assets_type');
             Route::post('/Assets/types', [\App\Http\Controllers\Admin\assets\AssetsTypeController::class, 'add_assets_type'])->name('add_assets_type');
             Route::get('/Assets/types/edit/{id}', [\App\Http\Controllers\Admin\assets\AssetsTypeController::class, 'edit'])->name('edit_assets_type');
@@ -229,6 +258,8 @@ Route::group(
             Route::resource('Assets', \App\Http\Controllers\Admin\assets\AssetsController::class);
             /*************************************************************************************/
             Route::resource('Suppliers', \App\Http\Controllers\Admin\SupplierController::class);
+            Route::resource('Mraf3at', Mraf3atController::class);
+            Route::resource('edary_work', EdaryWorkController::class);
             Route::resource('Tawkelate', \App\Http\Controllers\Admin\TawkelateController::class);
             Route::get('get_client_tawkel/{id}', [\App\Http\Controllers\Admin\TawkelateController::class, 'get_client_tawkel'])->name('get_client_tawkel');
 
@@ -392,9 +423,9 @@ Route::group(
 
 
             Route::post('/ask_ai', [ChatGPTController::class, 'ask'])->name('ask_ai');
-        Route::get('/chat', function () {
-            return view('dashbord.admin.openAi.chat');
-        });
+            Route::get('/chat', function () {
+                return view('dashbord.admin.openAi.chat');
+            });
             Route::post('/openai/generate-text', [OpenAIController::class, 'generateText'])->name('generateText');
 
             /************************** MAINDATA *****************************/

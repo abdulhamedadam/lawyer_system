@@ -55,7 +55,7 @@
 
     <div class="col-md-12 row" style="margin-top: 20px">
         <div class="col-md-4">
-            <label for="lawyer" class="form-label">{{ translate('Lawyer') }}</label>
+            <label for="lawyer" class="form-label">{{ translate('lawyer') }}</label>
             <div class="input-group flex-nowrap">
                 <span class="input-group-text" id="basic-addon3">{!! form_icon('select') !!}</span>
                 <div class="overflow-hidden flex-grow-1">

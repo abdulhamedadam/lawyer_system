@@ -91,6 +91,12 @@
                         <i class="bi bi-person-workspace"></i> <?= translate('experts') ?>
                     </a>
 
+                    <a href="{{ route('admin.case_mraf3at', $all_data->id) }}"
+                        class="btn p-2 {{ request()->routeIs('admin.case_mraf3at') ? 'active' : '' }}"
+                        style="background-color: #103c4f; color: white;">
+                        <i class="bi bi-archive"></i> <?= translate('mraf3at') ?>
+                    </a>
+
                     <a href="{{ route('admin.case_payments', $all_data->id) }}"
                        class="btn btn-danger p-2 {{ request()->routeIs('admin.case_payments') ? 'active' : '' }}">
                         <i class="bi bi-currency-exchange"></i> <?= translate('Case_financial_transactions') ?>

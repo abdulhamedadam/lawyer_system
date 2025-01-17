@@ -22,11 +22,11 @@ class AddCaseStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => 'required|string|max:255',
-            'year' => 'required|integer|min:2000|max:' . date('Y'),
+            // 'code' => 'required|string|max:255',
+            // 'year' => 'required|integer|min:2000|max:' . date('Y'),
             'case_status_id' => 'required|exists:tbl_cases_settings,id',
             'lawyer_id' => 'required|exists:employees,id',
-            'case_archive_id' => 'required|string|max:255',
+            // 'case_archive_id' => 'required|string|max:255',
             'reasons' => 'required|string',
             'notes' => 'required|string',
         ];

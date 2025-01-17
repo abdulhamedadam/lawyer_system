@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin;
 
+use App\Models\Tawkelat;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -128,5 +129,11 @@ class Cases extends Model
 
     /************************************************************/
 
+    public function client() {
+        return $this->belongsTo(Cleints::class, 'client_id_fk');
+    }
 
+    public function caseType() {
+        return $this->belongsTo(CaseSettings::class, 'case_type_fk');
+    }
 }

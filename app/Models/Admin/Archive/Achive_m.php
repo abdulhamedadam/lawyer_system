@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin\Archive;
 
+use App\Models\EdaryWork;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -53,9 +54,11 @@ class Achive_m extends Model
     public function get_data_table($id = null)
     {
         $query = DB::table('tbl_archive')
-            ->select('tbl_archive.*', 't2.case_name', 't4.name as client_name', 't7.title as desk', 't8.title as shelf')
+            ->select('tbl_archive.*', 't2.case_name', 't4.name as client_name', 't5.edary_work_type', 't6.title as edary_work_type_title', 't7.title as desk', 't8.title as shelf')
             ->leftJoin('tbl_clients_cases as t2', 't2.id', '=', 'tbl_archive.related_entity_id')
             ->leftJoin('tbl_clients as t4', 't4.id', '=', 'tbl_archive.related_entity_id')
+            ->leftJoin('tbl_edary_works as t5', 't5.id', '=', 'tbl_archive.related_entity_id')
+            ->leftJoin('tbl_cases_settings as t6', 't6.id', '=', 't5.edary_work_type')
             ->leftJoin('tbl_archive_settings as t7', 't7.id', '=', 'tbl_archive.desk_id')
             ->leftJoin('tbl_archive_settings as t8', 't8.id', '=', 'tbl_archive.shelf_id');
 
@@ -75,9 +78,10 @@ class Achive_m extends Model
     public function get_archive_data($id,$type)
     {
         $query = DB::table('tbl_archive')
-            ->select('tbl_archive.*', 't2.case_name', 't4.name as client_name', 't7.title as desk', 't8.title as shelf')
+            ->select('tbl_archive.*', 't2.case_name', 't4.name as client_name', 't5.edary_work_type', 't7.title as desk', 't8.title as shelf')
             ->leftJoin('tbl_clients_cases as t2', 't2.id', '=', 'tbl_archive.related_entity_id')
             ->leftJoin('tbl_clients as t4', 't4.id', '=', 'tbl_archive.related_entity_id')
+            ->leftJoin('tbl_edary_works as t5', 't5.id', '=', 'tbl_archive.related_entity_id')
             ->leftJoin('tbl_archive_settings as t7', 't7.id', '=', 'tbl_archive.desk_id')
             ->leftJoin('tbl_archive_settings as t8', 't8.id', '=', 'tbl_archive.shelf_id');
 
@@ -111,4 +115,8 @@ class Achive_m extends Model
         return $data;
     }
 
+    public function edaryWork()
+    {
+        return $this->belongsTo(EdaryWork::class,'related_entity_id','id');
+    }
 }

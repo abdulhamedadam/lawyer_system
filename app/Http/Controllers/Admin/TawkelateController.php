@@ -202,8 +202,12 @@ class TawkelateController extends Controller
     public function get_client_tawkel($id)
     {
         $tawkelate = $this->TawkelateRepository->getBywhere(['client_id' => $id])->load('TawkelType');
-
-        return response()->json(['tawkelate' =>$tawkelate]);
+        $client = $this->ClientRepository->getById($id);
+        // dd($client);
+        return response()->json([
+            'tawkelate' => $tawkelate,
+            'phone' => $client->phone_number,
+        ]);
 
     }
 

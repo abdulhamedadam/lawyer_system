@@ -24,7 +24,7 @@
                         <table id="table1" class="table table-bordered">
                             <thead>
                             <tr class="fw-bold fs-6 text-gray-800">
-                                <th style="width: 5%"{{translate('m')}}<</th>
+                                <th style="width: 5%"> {{translate('m')}} </th>
                                 <th style="text-align: center"> {{translate('archive_type')}}</th>
                                 <th style="text-align: center"> {{translate('related_entity')}}</th>
                                 <th style="text-align: center"> {{translate('secret_degree')}}</th>
@@ -99,7 +99,7 @@
                             }
                         },
                         {
-                            "targets": [2,3,4],
+                            "targets": [3,4],
                             "createdCell": function(td, cellData, rowData, row, col) {
                                 $(td).css({
                                     'font-weight': '600',
@@ -109,9 +109,18 @@
                                 });
                             }
                         },
-
-
-
+                        {
+                            "targets": [2],
+                            "createdCell": function(td, cellData, rowData, row, col) {
+                                $(td).css({
+                                    'color': '#6610f2',
+                                    'font-weight': '600',
+                                    'text-align': 'center',
+                                    'vertical-align': 'middle',
+                                    'text-decoration': 'underline'
+                                });
+                            }
+                        },
                     ],
                     "buttons": [
                         { "extend": 'excel', "text": ' شيت اكسيل' },

@@ -6,8 +6,6 @@
                 {{ $item->case_name }}---{{$item->client_name}}
             </option>
         @endforeach
-
-
 @elseif($id==2)
     @foreach($all_data as $item)
         <option value="{{ $item->id }}" >{{ $item->employee }}</option>

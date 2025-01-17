@@ -9,7 +9,7 @@
             <td class="class_label"  style="color:blue"><?= translate('shelf') ?></td>
             <td class="class_result"><?php echo $archive_data->shelf; ?></td>
             <td class="class_label"  style="color:blue"><?= translate('secret_degree') ?></td>
-            <td class="class_result"><?php echo $archive_data->secret_degree; ?></td>
+            <td class="class_result"><?php echo secret_degree()[$archive_data->secret_degree]; ?></td>
             <td class="class_label"  style="color:blue"><?= translate('folder_code') ?></td>
             <td class="class_result">{{ $archive_data->folder_code }}</td>
         </tr>

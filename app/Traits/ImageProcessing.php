@@ -78,7 +78,7 @@ trait  ImageProcessing
         return true;
     }
 
-   /****************************************************************/
+    /****************************************************************/
     public function saveFile($file, $folder = null)
     {
         $extension = $this->get_mime($file->getMimeType());
