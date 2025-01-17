@@ -11,6 +11,7 @@ use App\Http\Requests\Admin\caseStatus\AddCaseStatusRequest;
 use App\Http\Requests\Admin\FileRequest;
 use App\Http\Requests\Admin\expert\AddCasesExpertsRequest;
 use App\Http\Requests\Admin\mo7dareen\AddMo7dareenRequest;
+use App\Http\Requests\Admin\mraf3at\AddCaseMraf3atRequest;
 use App\Http\Requests\Admin\tanfizA7kam\AddCasestanfizA7kamRequest;
 use App\Interfaces\BasicRepositoryInterface;
 use App\Models\Admin;
@@ -35,6 +36,7 @@ use App\Models\CasesExperts;
 use App\Models\CasesMo7dareen;
 use App\Models\CaseStatus;
 use App\Models\CaseTanfizA7kam;
+use App\Models\Mraf3at;
 use App\Services\CaseSessionService;
 use App\Services\DuesService;
 use App\Traits\ImageProcessing;
@@ -70,6 +72,7 @@ class CasesController extends Controller
     protected $CaseTanfizA7kam;
     protected $CaseExpert;
     protected $CaseStatus;
+    protected $CaseMraf3at;
 
     public function __construct(BasicRepositoryInterface $basicRepository, CaseSessionService $caseSessionService, DuesService $duesService)
     {
@@ -92,6 +95,7 @@ class CasesController extends Controller
         $this->CaseTanfizA7kam = createRepository($basicRepository, new CaseTanfizA7kam());
         $this->CaseExpert = createRepository($basicRepository, new CasesExperts());
         $this->CaseStatus = createRepository($basicRepository, new CaseStatus());
+        $this->CaseMraf3at = createRepository($basicRepository, new Mraf3at());
         $this->caseSessionService = $caseSessionService;
         $this->duesService = $duesService;
 
@@ -378,14 +382,21 @@ class CasesController extends Controller
     public function download_file($file_id)
     {
         try {
-            $client_file = $this->ArchiveFilesRepository->getById($file_id);
-            $file_path = Storage::disk('files')->path($client_file->file);
+            $case_file = $this->ArchiveFilesRepository->getById($file_id);
+
+            $file_path = Storage::disk('files')->path($case_file->file);
+            $file_extension = pathinfo($case_file->file, PATHINFO_EXTENSION);
+            $file_name_with_extension = $case_file->file_name;
+
+            if (!str_ends_with($file_name_with_extension, ".$file_extension")) {
+                $file_name_with_extension .= ".$file_extension";
+            }
+
             $headers = [
                 'Content-Type' => 'application/octet-stream',
-                'Content-Disposition' => 'attachment; filename="' . $client_file->file_name . '"',
+                'Content-Disposition' => 'attachment; filename="' . $file_name_with_extension . '"',
             ];
-            return response()->download($file_path, $client_file->file_name, $headers);
-
+            return response()->download($file_path, $file_name_with_extension, $headers);
 
         } catch (\Exception $e) {
             test($e->getMessage());
@@ -1043,6 +1054,75 @@ class CasesController extends Controller
 
             $request->session()->flash('toastMessage', translate('deleted_successfully'));
             return redirect()->route('admin.case_status', $case_id);
+
+        } catch (\Exception $e) {
+            test($e->getMessage());
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    /****************************************************************/
+    public function mraf3at(Cases $cases, $case_id)
+    {
+        $data['all_data'] = $cases->get_data_table_data($case_id)[0];
+        $data['mraf3a_data'] = $this->CaseMraf3at->getAll();
+        return view('dashbord.admin.cases.mraf3at.mraf3at', $data);
+    }
+    /***************************************************************/
+    public function add_mraf3a(AddCaseMraf3atRequest $request, $id)
+    {
+        try {
+            // dd($request);
+            $validatedData = $request->validated();
+            $validatedData['case_id'] = $id;
+            $validatedData['created_by'] = auth()->user()->id;
+            // dd($validatedData);
+            $case_mraf3at = $this->CaseMraf3at->create($validatedData);
+            $request->session()->flash('toastMessage', translate('added_successfully'));
+            return redirect()->route('admin.case_mraf3at', $id);
+
+
+        } catch (\Exception $e) {
+            test($e->getMessage());
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+    /***************************************************************/
+    public function edit_mraf3a($id)
+    {
+        $data['mraf3a_data'] = $this->CaseMraf3at->getById($id);
+        return view('dashbord.admin.cases.mraf3at.mraf3at_edit', $data);
+    }
+    /***************************************************************/
+    public function update_mraf3a(AddCaseMraf3atRequest $request, $id)
+    {
+        try {
+            //dd($request);
+            $validatedData = $request->validated();
+            $validatedData['updated_by'] = auth()->user()->id;
+            // dd($validatedData);
+            $this->CaseMraf3at->update($id,$validatedData);
+            $case_mraf3a=$this->CaseMraf3at->getById($id);
+            $request->session()->flash('toastMessage', translate('updated_successfully'));
+            return redirect()->route('admin.case_mraf3at', $case_mraf3a->case_id);
+
+
+        } catch (\Exception $e) {
+            test($e->getMessage());
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    /***************************************************************/
+    public function delete_mraf3a(Request $request,$id)
+    {
+        try {
+            $case_mraf3a = $this->CaseMraf3at->getById($id);
+            $case_id = $case_mraf3a->case_id;
+            $this->CaseMraf3at->delete($id);
+
+            $request->session()->flash('toastMessage', translate('deleted_successfully'));
+            return redirect()->route('admin.case_mraf3at', $case_id);
 
         } catch (\Exception $e) {
             test($e->getMessage());

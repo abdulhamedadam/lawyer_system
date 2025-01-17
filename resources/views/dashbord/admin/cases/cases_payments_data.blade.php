@@ -31,7 +31,7 @@
                         <div class="btn-group">
 
                             <a data-bs-toggle="modal" data-bs-target="#myModal" onclick="edit_payment({{ $item['id'] }})" class="btn btn-sm btn-primary" title="{{ translate('edit') }}">
-                                <i class="fas fa-edit"></i>
+                                <i class="bi bi-pencil-square"></i>
                             </a>
                             <a href="{{ route('admin.case_delete_payments', $item['id']) }}" onclick="return confirm('Are You Sure To Delete?')" class="btn btn-sm btn-danger">
                                 <i class="bi bi-trash"></i>

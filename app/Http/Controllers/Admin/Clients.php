@@ -383,16 +383,21 @@ class Clients extends Controller
     public function download_file($file_id)
     {
         try {
-           $client_file=$this->ArchiveFilesRepository->getById($file_id);
+            $client_file=$this->ArchiveFilesRepository->getById($file_id);
+
             $file_path = Storage::disk('files')->path($client_file->file);
+            $file_extension = pathinfo($client_file->file, PATHINFO_EXTENSION);
+            $file_name_with_extension = $client_file->file_name;
+
+            if (!str_ends_with($file_name_with_extension, ".$file_extension")) {
+                $file_name_with_extension .= ".$file_extension";
+            }
+
             $headers = [
                 'Content-Type' => 'application/octet-stream',
-                'Content-Disposition' => 'attachment; filename="' . $client_file->file_name . '"',
+                'Content-Disposition' => 'attachment; filename="' . $file_name_with_extension . '"',
             ];
-            return response()->download($file_path, $client_file->file_name, $headers);
-
-
-
+            return response()->download($file_path, $file_name_with_extension, $headers);
 
         } catch (\Exception $e) {
             test($e->getMessage());

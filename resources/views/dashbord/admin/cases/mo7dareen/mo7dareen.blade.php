@@ -45,7 +45,7 @@
 
             <div class="card shadow-sm" style="border-top: 3px solid #007bff;">
                 <div class="card-header" style="background-color: #f8f9fa;">
-                    <h3 class="card-title"></i> {{translate('case_payments')}}</h3>
+                    <h3 class="card-title"></i> {{translate('mo7dareen')}}</h3>
                     <div class="card-toolbar">
                         <div class="text-center">
                         </div>

@@ -5,10 +5,8 @@
             <thead>
             <tr class="greentd" style="background-color: lightgrey" >
                 <th>{{translate('hash') }}</th>
-                <th>{{ translate('case_code') }}</th>
-                <th>{{ translate('case_status') }}</th>
                 <th>{{ translate('lawyer') }}</th>
-                <th>{{ translate('case_archive_id') }}</th>
+                <th>{{ translate('case_status') }}</th>
                 <th>{{ translate('reasons') }}</th>
                 <th>{{ translate('notes') }}</th>
                 <th>{{ translate('actions') }}</th>
@@ -21,14 +19,8 @@
             @foreach ($case_status_data as $item)
                 <tr>
                     <td>{{ $x++ }}</td>
-                    <td style="color: red">
-                        <span style="color: green;">{{ translate('partial_num') }}</span> : <span style="color: blue;">{{$item['code']}}</span>
-                        <br>
-                        <span style="color: green;">{{ translate('for_year') }}</span> : <span style="color: blue;">{{$item['year']}}</span>
-                    </td>
-                    <td style="color: green">{{ $item->case_status->title }}</td>
                     <td style="color: blue;text-decoration: underline">{{ $item->employee->employee}}</td>
-                    <td style="color: green">{{ $item['case_archive_id']}}</td>
+                    <td style="color: green">{{ $item->case_status->title }}</td>
                     <td>{{ \Str::words($item['reasons'], 25) }}</td>
                     <td>{{ \Str::words($item['notes'], 25) }}</td>
                     <td>

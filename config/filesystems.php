@@ -53,6 +53,7 @@ return [
         'files' => [
             'driver' => 'local',
             'root' => storage_path('app/files'),
+            // 'url' => env('APP_URL').'/files',
             'url' => env('APP_URL').'/public/files',
             'visibility' => 'public',
             'throw' => false,

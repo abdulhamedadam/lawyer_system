@@ -72,37 +72,50 @@ class Archive_c extends Controller
                     return $counter;
                 })
                 ->addColumn('archive_type', function ($row) {
-                    $folder =['cases' =>translate('cases') ,'clients' => translate('clients')];
+                    $folder =['cases' =>translate('cases') ,'clients' => translate('clients'), 'edary' => translate('edary_work')];
                     return $folder[$row->type];
                 })
                 ->addColumn('related_entity', function ($row) {
-                    $folder =['cases' =>($row->case_name) ,'clients' => ($row->client_name)];
-                    return $folder[$row->type];
+                    // $folder =['cases' =>($row->case_name) ,'clients' => ($row->client_name), 'edary' => ($row->edary_work_type_title)];
+                    // return $folder[$row->type];
+                    $folder = [
+                        'cases' => [
+                            'name' => $row->case_name,
+                            'route' => route('admin.case_morfqat', ['id' => $row->related_entity_id]),
+                        ],
+                        'clients' => [
+                            'name' => $row->client_name,
+                            'route' => route('admin.morfqat', ['id' => $row->related_entity_id]),
+                        ],
+                        'edary' => [
+                            'name' => $row->edary_work_type_title,
+                            'route' => route('admin.edary_work_morfqat', ['id' => $row->related_entity_id]),
+                        ],
+                    ];
+
+                    $entity = $folder[$row->type];
+                    return '<a href="' . $entity['route'] . '">' . e($entity['name']) . '</a>';
                 })
-
                 ->addColumn('secret_degree', function ($row) {
-
-                    return $row->secret_degree;
+                    return secret_degree()[$row->secret_degree];
                 })
                 ->addColumn('place', function ($row) {
                     return  '<span style="color:green"><i class="bi bi-archive"></i>'.translate('desk').' : </span><span style="color:red">' . $row->desk . '</span>
-          <br/><span style="color:green"><i class="bi bi-bookshelf"></i>'.translate('shelf').' : </span><span style="color:red">' . $row->shelf . '</span>
-          <br/><span style="color:green"><i class="bi bi-folder2"></i>'.translate('folder_code').' : </span><span style="color:red">' . $row->folder_code . '</span>';
-
-
+                            <br/><span style="color:green"><i class="bi bi-bookshelf"></i>'.translate('shelf').' : </span><span style="color:red">' . $row->shelf . '</span>
+                            <br/><span style="color:green"><i class="bi bi-folder2"></i>'.translate('folder_code').' : </span><span style="color:red">' . $row->folder_code . '</span>';
                 })
                 ->addColumn('action', function ($row) {
                     return '<a href="'.route('admin.edit_archive',$row->id).'"class="btn btn-sm btn-warning" title="">
-                          <i class="bi bi-pencil fs-2"></i>
+                        <i class="bi bi-pencil fs-2"></i>
                         </a>
-                        <a onclick="return confirm(\'Are You Sure To Delete?\')" href="'.route('admin.delete_user',$row->id).'"  class="btn btn-sm btn-danger">
+                        <a onclick="return confirm(\'Are You Sure To Delete?\')" href="'.route('admin.delete_archive',$row->id).'"  class="btn btn-sm btn-danger">
                             <i class="bi bi-trash fs-2"></i>
                         </a>
                         <a  href="'.route('admin.archive_files',$row->id).'"  class="btn btn-sm btn-success">
                             <i class="bi bi-files fs-2"></i>
                         </a>
                         ';
-                })->rawColumns(['place', 'action','secret_degree','role'])
+                })->rawColumns(['place', 'action','secret_degree','role', 'related_entity'])
                 ->make(true);
 
             return $dataTable->toJson();
@@ -288,9 +301,6 @@ class Archive_c extends Controller
             $file_path  = Storage::disk('files')->path($archive->file);
             $fileContent = Storage::get($file_path);
             return response()->file($file_path);
-
-
-
         } catch (\Exception $e) {
             test($e->getMessage());
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
@@ -319,15 +329,21 @@ class Archive_c extends Controller
     public function download_file($file_id)
     {
         try {
-            $archive_file=$this->ArchiveFilesRepository->getById($file_id);
+            $archive_file = $this->ArchiveFilesRepository->getById($file_id);
+
             $file_path = Storage::disk('files')->path($archive_file->file);
+            $file_extension = pathinfo($archive_file->file, PATHINFO_EXTENSION);
+            $file_name_with_extension = $archive_file->file_name;
+
+            if (!str_ends_with($file_name_with_extension, ".$file_extension")) {
+                $file_name_with_extension .= ".$file_extension";
+            }
+
             $headers = [
                 'Content-Type' => 'application/octet-stream',
-                'Content-Disposition' => 'attachment; filename="' . $archive_file->file . '"',
+                'Content-Disposition' => 'attachment; filename="' . $file_name_with_extension . '"',
             ];
-            return response()->download($file_path);
-
-
+            return response()->download($file_path, $file_name_with_extension, $headers);
 
         } catch (\Exception $e) {
             test($e->getMessage());

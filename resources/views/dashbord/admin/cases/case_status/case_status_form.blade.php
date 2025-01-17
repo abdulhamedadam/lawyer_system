@@ -4,7 +4,7 @@
 
     <div class="col-md-12 row">
 
-        <div class="col-md-4">
+        {{-- <div class="col-md-4">
             <label for="basic-url" class="form-label">{{translate('case_code')}}</label>
             <div class="input-group flex-nowrap">
                 <span class="input-group-text" id="basic-addon3">{!! form_icon('text') !!}</span>
@@ -37,29 +37,7 @@
             @error('year')
                 <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
             @enderror
-        </div>
-
-        <div class="col-md-4">
-            <label for="basic-url" class="form-label">{{translate('case_status')}}</label>
-            <div class="input-group flex-nowrap ">
-                <span class="input-group-text" id="basic-addon3">{!! form_icon('select') !!}</span>
-                <div class="overflow-hidden flex-grow-1">
-                    <select class="form-select rounded-start-0" name="case_status_id" id="case_status_id"
-                            data-placeholder="{{translate('select')}}">
-                        <option value="">{{translate('select')}}</option>
-                        @foreach($statuses as $item)
-                            <option
-                                value="{{$item->id}}" {{ old('case_status_id') == $item->id ? 'selected' : '' }}>{{$item->title}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-        @error('case_status_id')
-            <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
-            @enderror
-        </div>
-    </div>
-    <div class="col-md-12 row" style="margin-top: 20px">
+        </div> --}}
         <div class="col-md-4">
             <label for="lawyer_id" class="form-label">{{ translate('lawyer') }}</label>
             <div class="input-group flex-nowrap">
@@ -82,18 +60,26 @@
         </div>
 
         <div class="col-md-4">
-            <label for="basic-url" class="form-label">{{translate('case_archive_id')}}</label>
-            <div class="input-group flex-nowrap">
-                <span class="input-group-text" id="basic-addon3">{!! form_icon('text') !!}</span>
-                <input type="text" class="form-control" name="case_archive_id" id="case_archive_id"
-                    value="{{old('case_archive_id')}}" aria-describedby="basic-addon3">
+            <label for="basic-url" class="form-label">{{translate('case_status')}}</label>
+            <div class="input-group flex-nowrap ">
+                <span class="input-group-text" id="basic-addon3">{!! form_icon('select') !!}</span>
+                <div class="overflow-hidden flex-grow-1">
+                    <select class="form-select rounded-start-0" name="case_status_id" id="case_status_id"
+                            data-placeholder="{{translate('select')}}">
+                        <option value="">{{translate('select')}}</option>
+                        @foreach($statuses as $item)
+                            <option
+                                value="{{$item->id}}" {{ old('case_status_id') == $item->id ? 'selected' : '' }}>{{$item->title}}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
-            @error('case_archive_id')
+        @error('case_status_id')
             <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
             @enderror
         </div>
-
     </div>
+    
     <div class="col-md-12" style="margin-top: 20px">
         <div class="mb-3">
             <label for="reasons" class="form-label">{{translate('reasons')}}</label>
