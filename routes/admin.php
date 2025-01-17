@@ -392,7 +392,10 @@ Route::group(
 
 
             Route::post('/ask_ai', [ChatGPTController::class, 'ask'])->name('ask_ai');
-        Route::get('/chat', function () {
+            Route::post('/train-ai', [\App\Http\Controllers\AITrainingController::class, 'train'])->name('train.ai');
+            Route::get('/ai-training-history', [\App\Http\Controllers\AITrainingController::class, 'trainingHistory'])->name('ai.training.history');
+
+            Route::get('/chat', function () {
             return view('dashbord.admin.openAi.chat');
         });
             Route::post('/openai/generate-text', [OpenAIController::class, 'generateText'])->name('generateText');
