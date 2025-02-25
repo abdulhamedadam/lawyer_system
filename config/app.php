@@ -175,7 +175,11 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-        niklasravnsborg\LaravelPdf\PdfServiceProvider::class
+        niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
+
+            Hazem\Zatca\ZatcaServiceProvider::class,
+
+
     ])->toArray(),
 
     /*

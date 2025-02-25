@@ -10,6 +10,7 @@
         "darryldecode/cart": "^4.2",
         "dompdf/dompdf": "^2.0",
         "guzzlehttp/guzzle": "^7.9",
+        "hazem7575/zatca": "^1.0",
         "intervention/image": "^2.7",
         "joedixon/laravel-translation": "^2.2",
         "laravel/framework": "^10.10",

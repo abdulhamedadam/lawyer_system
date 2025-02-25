@@ -32,7 +32,7 @@
                                     </div>
                                 </div>
                                 @error('client_id')
-                                <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
+                                <span class="fv-plugins-message-container invalid-feedback" role="alert">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="col-md-3">

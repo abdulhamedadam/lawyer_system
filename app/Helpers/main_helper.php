@@ -756,14 +756,21 @@ if (!function_exists('generateTable')) {
 if (!function_exists('generateCardHeader')) {
     function generateCardHeader($card_title,$route,$add_button_title)
     {
+        if ($add_button_title)
+        {
+            $button='<a class="btn btn-primary" href="'. route($route) .'">
+                                <i class="bi bi-plus fs-1"></i>'. htmlspecialchars(translate($add_button_title)).'
+                            </a>';
+        }else{
+            $button='';
+        }
+
         $header = '
          <div class="card-header">
                     <h3 class="card-title">'. htmlspecialchars(translate($card_title)).'</h3>
                     <div class="card-toolbar">
                         <div class="text-center">
-                            <a class="btn btn-primary" href="'. route($route) .'">
-                                <i class="bi bi-plus fs-1"></i>'. htmlspecialchars(translate($add_button_title)).'
-                            </a>
+                            '.$button.'
                         </div>
                     </div>
                 </div>

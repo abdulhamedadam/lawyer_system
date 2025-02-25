@@ -14,9 +14,13 @@ use App\Http\Controllers\Api\ApiNotificationsController;
 use App\Http\Controllers\Api\CarController;
 use App\Http\Controllers\Api\AppDataController;
 
+use App\Http\Controllers\ZatcaTestController;
 use Illuminate\Support\Facades\Route;
 
-
+Route::post('/register-device', [ZatcaTestController::class, 'registerDevice']);
+Route::get('/create-invoice', [ZatcaTestController::class, 'createInvoice']);
+Route::get('/invoice-status/{order_id}', [ZatcaTestController::class, 'checkInvoiceStatus']);
+Route::get('/generate-qr/{order_id}', [ZatcaTestController::class, 'generateQrCode']);
 Route::post('/printpost', [TestApi::class, 'printpost']);
 Route::get('/users', [TestApi::class, 'get_user_list']);
 Route::post('/notifyUser', [TestApi::class, 'notifyUser']);
