@@ -34,7 +34,7 @@
             <div class="d-flex flex-column flex-center p-6 p-lg-10 w-100">
                 <!--begin::Logo-->
                 <a href="#" class="mb-0 ">
-                    <img alt="Logo" src="{{asset('assets/media/logos/home-button (2).png')}}" class=""/>
+                    <img alt="Logo" src="{{asset('assets/images/logos/home-button (2).png')}}" class=""/>
                 </a>
                 <!--end::Logo-->
                 <!--begin::Image-->
@@ -74,6 +74,7 @@
                     <!--begin::Heading-->
                         <div class="text-center mb-11">
                             <!--begin::Title-->
+
                             <h1 class="text-dark fw-bolder mb-3">Sign In</h1>
                             <!--end::Title-->
 
